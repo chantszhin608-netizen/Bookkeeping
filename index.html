@@ -317,6 +317,68 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .backup-btns{display:flex;gap:8px;margin:8px 0}
 .bk-btn{flex:1;padding:12px;background:var(--glass2);border:1.5px solid var(--gb);border-radius:12px;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;transition:all .15s;text-align:center}
 .bk-btn:active{border-color:var(--purple);color:#A78BFA}
+
+/* ── Theme Variants ── */
+body.t-sakura{--purple:#EC4899;--pd:#DB2777;--pg:rgba(236,72,153,.4);--cyan:#F472B6;--cg:rgba(244,114,182,.25)}
+body.t-emerald{--purple:#10B981;--pd:#059669;--pg:rgba(16,185,129,.4);--cyan:#34D399;--cg:rgba(52,211,153,.25)}
+body.t-aurora{--purple:#6366F1;--pd:#4F46E5;--pg:rgba(99,102,241,.4);--cyan:#A855F7;--cg:rgba(168,85,247,.25)}
+body.t-sunset{--purple:#F97316;--pd:#EA580C;--pg:rgba(249,115,22,.4);--cyan:#FBBF24;--cg:rgba(251,191,36,.25)}
+
+/* ── Pig Quote ── */
+.quote-card{display:flex;align-items:center;gap:10px;background:var(--glass);border:1px solid var(--gb2);border-radius:14px;padding:11px 14px;margin-bottom:12px;backdrop-filter:blur(10px)}
+.quote-pig{font-size:26px;flex-shrink:0;animation:wig 3s ease-in-out infinite}
+@keyframes wig{0%,100%{transform:rotate(0)}25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
+.quote-text{flex:1;font-size:13px;color:var(--text);line-height:1.5;font-weight:500}
+
+/* ── Streak ── */
+.streak-card{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,rgba(251,146,60,.18),rgba(248,113,113,.1));border:1px solid rgba(251,146,60,.3);border-radius:14px;padding:12px 14px;margin-bottom:12px}
+.streak-info{display:flex;align-items:center;gap:10px}
+.streak-emoji{font-size:28px}
+.streak-num{font-size:22px;font-weight:900;color:#FB923C;line-height:1}
+.streak-lbl{font-size:11px;color:var(--t2);margin-top:2px}
+.streak-right{font-size:10px;color:var(--t3);text-align:right;line-height:1.5}
+
+/* ── Piggy Bank ── */
+.pb-card{background:var(--glass);border:1px solid var(--gb2);border-radius:16px;padding:14px;margin-bottom:10px;cursor:pointer;transition:transform .15s}
+.pb-card:active{transform:scale(.98)}
+.pb-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.pb-ico{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.pb-info{flex:1;min-width:0}
+.pb-name{font-size:15px;font-weight:700}
+.pb-deadline{font-size:11px;color:var(--t2);margin-top:2px}
+.pb-amts{text-align:right;flex-shrink:0}
+.pb-cur{font-size:16px;font-weight:800;color:var(--cyan)}
+.pb-tgt{font-size:11px;color:var(--t2)}
+.pb-bar-bg{height:7px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden}
+.pb-bar{height:100%;background:linear-gradient(90deg,var(--purple),var(--cyan));transition:width .5s;border-radius:4px}
+.pb-pct{text-align:right;font-size:11px;color:var(--t2);margin-top:4px;font-weight:700}
+
+/* ── Theme Picker ── */
+.theme-row{display:flex;gap:10px;padding:14px 16px;justify-content:center;flex-wrap:wrap}
+.theme-opt{width:42px;height:42px;border-radius:13px;cursor:pointer;border:2.5px solid transparent;transition:transform .15s;position:relative}
+.theme-opt:active{transform:scale(.88)}
+.theme-opt.sel{border-color:#fff;box-shadow:0 0 14px rgba(255,255,255,.4)}
+.theme-opt.sel::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:18px;text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.tp-purple{background:linear-gradient(135deg,#8B5CF6,#22D3EE)}
+.tp-sakura{background:linear-gradient(135deg,#EC4899,#F472B6)}
+.tp-emerald{background:linear-gradient(135deg,#10B981,#34D399)}
+.tp-aurora{background:linear-gradient(135deg,#6366F1,#A855F7)}
+.tp-sunset{background:linear-gradient(135deg,#F97316,#FBBF24)}
+
+/* ── AA Split ── */
+.aa-mode-tog{display:flex;background:var(--gb2);border-radius:10px;padding:3px;margin:14px 16px 0}
+.aa-mode-tog button{flex:1;padding:7px;border:none;background:none;border-radius:7px;font-size:12px;font-weight:700;color:var(--t2);cursor:pointer;transition:all .2s}
+.aa-mode-tog button.act{background:var(--purple);color:#fff;box-shadow:0 0 10px var(--pg)}
+.aa-section{padding:16px;display:none}
+.aa-section.on{display:block}
+.aa-row{margin-bottom:12px}
+.aa-row label{display:block;font-size:11px;color:var(--t2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.aa-row input{width:100%;padding:13px 16px;background:var(--glass2);border:1.5px solid var(--gb);border-radius:12px;color:var(--text);font-size:20px;outline:none;font-weight:700;text-align:center;transition:border-color .15s}
+.aa-row input:focus{border-color:var(--purple)}
+.aa-result{background:linear-gradient(135deg,var(--purple),var(--cyan));border-radius:16px;padding:18px;text-align:center;margin-top:14px;color:#fff;box-shadow:0 4px 20px var(--pg)}
+.aa-result-lbl{font-size:11px;opacity:.9;letter-spacing:.5px;text-transform:uppercase}
+.aa-result-val{font-size:38px;font-weight:900;margin:6px 0;letter-spacing:-1px}
+.aa-result-sub{font-size:12px;opacity:.85}
 </style>
 </head>
 <body>
@@ -346,10 +408,21 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
     <!-- Home -->
     <div class="view active" id="view-home">
       <div class="home-wrap">
+        <div class="quote-card" id="quoteCard">
+          <span class="quote-pig">🐷</span>
+          <span class="quote-text" id="quoteText">欢迎使用小猪的记账本~</span>
+        </div>
         <div class="hero">
           <div class="hero-lbl">本月净结余</div>
           <div class="hero-amt" id="heroBal">HK$0.00</div>
           <div class="hero-cur" id="heroCurLine">港币 · 本月</div>
+        </div>
+        <div class="streak-card" id="streakCard">
+          <div class="streak-info">
+            <span class="streak-emoji">🔥</span>
+            <div><div class="streak-num" id="streakNum">0</div><div class="streak-lbl">天连续记账</div></div>
+          </div>
+          <div class="streak-right" id="streakRight">最佳<br><b style="color:var(--text)">0</b> 天</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;padding:0 4px 4px">
           <span style="font-size:13px;color:var(--t2);font-weight:600">最近记录</span>
@@ -417,6 +490,13 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
     <!-- Mine -->
     <div class="view" id="view-mine">
       <div class="mine-wrap">
+        <div class="mine-sec-title">🐷 小猪存钱罐</div>
+        <div id="pbList"></div>
+        <button class="add-acc-btn" onclick="openPbDlg()">＋ 添加存钱目标</button>
+        <div class="mine-sec-title">🎨 主题色</div>
+        <div class="gc" style="overflow:hidden;margin-bottom:16px">
+          <div class="theme-row" id="themeRow"></div>
+        </div>
         <div class="mine-sec-title">我的账户</div>
         <div id="accsList"></div>
         <button class="add-acc-btn" onclick="openAccDlg()">＋ 添加账户</button>
@@ -512,11 +592,25 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 <!-- Calculator -->
 <div class="calc-modal" id="calcModal">
   <div class="calc-box">
-    <div class="calc-disp">
+    <div class="aa-mode-tog">
+      <button class="act" id="calcModeStd" onclick="setCalcMode('std')">🧮 普通计算</button>
+      <button id="calcModeAA" onclick="setCalcMode('aa')">🤝 AA 分账</button>
+    </div>
+    <div class="aa-section" id="aaSection">
+      <div class="aa-row"><label>总金额</label><input type="number" id="aaTotal" placeholder="0.00" oninput="calcAA()"></div>
+      <div class="aa-row"><label>分账人数</label><input type="number" id="aaPeople" placeholder="2" value="2" min="1" oninput="calcAA()"></div>
+      <div class="aa-row"><label>小费 / 加成 %（可选）</label><input type="number" id="aaTip" placeholder="0" value="0" min="0" oninput="calcAA()"></div>
+      <div class="aa-result">
+        <div class="aa-result-lbl">每人需付</div>
+        <div class="aa-result-val" id="aaPerPerson">HK$0.00</div>
+        <div class="aa-result-sub" id="aaTotalDisplay">总计 HK$0.00</div>
+      </div>
+    </div>
+    <div class="calc-disp" id="calcDispEl">
       <div class="calc-hist" id="calcHist"></div>
       <div class="calc-num" id="calcNum">0</div>
     </div>
-    <div class="calc-grid">
+    <div class="calc-grid" id="calcGridEl">
       <button class="cb fn clr-btn" onclick="calcClear()">C</button>
       <button class="cb fn" onclick="calcSign()">±</button>
       <button class="cb fn" onclick="calcPct()">%</button>
@@ -582,6 +676,30 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
     <div class="sec-lbl" style="padding:0 0 8px">选择图标</div>
     <div class="icon-pick" id="iconPick"></div>
     <div class="dlg-btns"><button class="btn-c" onclick="closeAccDlg()">取消</button><button class="btn-p" onclick="saveAcc()">添加</button></div>
+  </div>
+</div>
+
+<!-- Piggy Bank Add/Edit -->
+<div class="acc-dlg" id="pbDlg">
+  <div class="acc-dlg-box">
+    <h3 id="pbDlgTitle">🐷 添加存钱目标</h3>
+    <input type="text" id="pbName" placeholder="目标名称（如：iPhone / 旅游基金）" maxlength="20">
+    <input type="number" id="pbTarget" placeholder="目标金额" min="0">
+    <input type="number" id="pbCurrent" placeholder="已存金额（可选）" min="0">
+    <div class="sec-lbl" style="padding:0 0 8px">选择图标</div>
+    <div class="icon-pick" id="pbIconPick"></div>
+    <div class="dlg-btns"><button class="btn-c" onclick="closePbDlg()">取消</button><button class="btn-p" onclick="savePb()">保存</button></div>
+  </div>
+</div>
+
+<!-- Piggy Bank Action -->
+<div class="dlg" id="pbActDlg">
+  <div class="dlg-box" style="width:86%;max-width:340px">
+    <h3 id="pbActTitle"></h3>
+    <div id="pbActContent" style="margin-bottom:14px"></div>
+    <input type="number" id="pbActAmount" placeholder="金额" min="0" style="width:100%;padding:12px;border:1.5px solid var(--gb);background:var(--glass2);color:var(--text);border-radius:11px;font-size:16px;font-weight:700;text-align:center;margin-bottom:14px;outline:none">
+    <div class="dlg-btns" style="margin-bottom:8px"><button class="btn-c" onclick="pbAct('deposit')" style="background:rgba(52,211,153,.2);color:var(--green);border-color:rgba(52,211,153,.3)">💰 存入</button><button class="btn-c" onclick="pbAct('withdraw')" style="background:rgba(248,113,113,.15);color:var(--red);border-color:rgba(248,113,113,.3)">💸 取出</button></div>
+    <div class="dlg-btns"><button class="btn-c" onclick="closePbAct()">关闭</button><button class="btn-d" onclick="deletePb()">删除目标</button></div>
   </div>
 </div>
 
@@ -690,7 +808,20 @@ function defaultDB(){
 }
 let db=(()=>{ try{ const s=localStorage.getItem('jzpro'); return s?JSON.parse(s):defaultDB(); }catch(e){ return defaultDB(); } })();
 if(!db.settings) db.settings={primCur:'HKD',limitAmt:0,limitCur:'HKD'};
+if(!db.savings) db.savings=[];
+if(!db.streak) db.streak={last:'',count:0,best:0};
+if(!db.theme) db.theme='purple';
 function saveDB(){ localStorage.setItem('jzpro',JSON.stringify(db)); }
+
+const PB_ICONS=['🐷','📱','✈️','🏠','🚗','💍','🎮','👗','💻','🎓','💎','🏝️'];
+const THEMES=[
+  {id:'purple',name:'紫电'},{id:'sakura',name:'樱花'},
+  {id:'emerald',name:'翡翠'},{id:'aurora',name:'极光'},{id:'sunset',name:'日落'},
+];
+function applyTheme(){
+  document.body.className=db.theme==='purple'?'':'t-'+db.theme;
+}
+applyTheme();
 
 // ═══════════════════════════════════════
 // STATE
@@ -770,7 +901,167 @@ function txItem(t){
 // ═══════════════════════════════════════
 function renderHome(){
   renderSummary();
+  renderStreak();
+  renderQuote();
   renderTxList('homeList', getMonthTxs(S.year,S.month));
+}
+
+// ═══════════════════════════════════════
+// STREAK (连续打卡)
+// ═══════════════════════════════════════
+function computeStreak(){
+  if(!db.txs.length) return 0;
+  const dates=[...new Set(db.txs.map(t=>t.date))].sort((a,b)=>b.localeCompare(a));
+  const today=todayStr();
+  const yest=(()=>{const d=new Date();d.setDate(d.getDate()-1);return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;})();
+  if(dates[0]!==today&&dates[0]!==yest) return 0;
+  let count=0,prev=null;
+  for(const d of dates){
+    if(!prev){ count=1; prev=d; continue; }
+    const pd=new Date(prev),cd=new Date(d);
+    const diff=Math.round((pd-cd)/(86400000));
+    if(diff===1){ count++; prev=d; } else break;
+  }
+  return count;
+}
+function renderStreak(){
+  const cur=computeStreak();
+  if(cur>db.streak.best){ db.streak.best=cur; saveDB(); }
+  document.getElementById('streakNum').textContent=cur;
+  document.getElementById('streakRight').innerHTML=`最佳<br><b style="color:var(--text)">${db.streak.best}</b> 天`;
+}
+
+// ═══════════════════════════════════════
+// PIG QUOTE (小猪寄语)
+// ═══════════════════════════════════════
+function renderQuote(){
+  const streak=computeStreak();
+  const today=todayStr();
+  const pc=db.settings.primCur,sym=getCur(pc).sym;
+  const todayTxs=db.txs.filter(t=>t.date===today);
+  const todayExp=todayTxs.filter(t=>t.type==='expense'&&t.currency===pc).reduce((s,t)=>s+t.amount,0);
+  const monthTxs=getMonthTxs(S.year,S.month).filter(t=>t.currency===pc);
+  const monthBal=monthTxs.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0)-monthTxs.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
+  const lim=db.settings;
+  let pig='🐷',msg='';
+  if(streak>=30){ pig='🏆'; msg=`太厉害了！已经坚持记账 ${streak} 天，理财大师就是你！`; }
+  else if(streak>=14){ pig='🔥'; msg=`连续 ${streak} 天记账，习惯已养成，保持下去！`; }
+  else if(streak>=7){ pig='⭐'; msg=`一周连续打卡，小猪为你鼓掌！`; }
+  else if(todayTxs.length===0){ pig='🐷'; msg='今天还没记账哦，记得回来打卡呀~'; }
+  else if(lim.limitAmt>0&&lim.limitCur===pc){
+    const r=todayExp/lim.limitAmt;
+    if(r>1){ pig='😱'; msg=`今天已超限额，要紧紧荷包啦！`; }
+    else if(r>0.8){ pig='⚠️'; msg=`今天消费已达限额 ${Math.round(r*100)}%，悠着点~`; }
+    else if(r<0.3&&todayExp>0){ pig='💪'; msg=`今天消费控制得不错！继续保持~`; }
+    else{ pig='🐷'; msg=`今天还剩 ${sym}${fmt(lim.limitAmt-todayExp,pc)} 限额`; }
+  } else if(monthBal>0){ pig='💰'; msg=`本月已节余 ${sym}${fmt(monthBal,pc)}，小猪很满意！`; }
+  else if(monthBal<0){ pig='🥺'; msg=`本月入不敷出，加油攒钱！`; }
+  else{ pig='🐷'; msg='坚持记账，财富自由不是梦~'; }
+  document.querySelector('.quote-pig').textContent=pig;
+  document.getElementById('quoteText').textContent=msg;
+}
+
+// ═══════════════════════════════════════
+// PIGGY BANK (存钱罐)
+// ═══════════════════════════════════════
+function renderPbList(){
+  const el=document.getElementById('pbList'); if(!el) return;
+  const pc=db.settings.primCur,sym=getCur(pc).sym;
+  if(!db.savings.length){ el.innerHTML=`<div style="text-align:center;padding:20px;color:var(--t3);font-size:13px">还没有存钱目标，加一个让小猪帮你存钱吧 🐷</div>`; return; }
+  el.innerHTML=db.savings.map(p=>{
+    const pct=p.target>0?Math.min(100,Math.round(p.current/p.target*100)):0;
+    const done=p.current>=p.target&&p.target>0;
+    return `<div class="pb-card" onclick="openPbAct('${p.id}')">
+      <div class="pb-top">
+        <div class="pb-ico" style="background:linear-gradient(135deg,var(--purple),var(--cyan))">${done?'🎉':p.icon}</div>
+        <div class="pb-info"><div class="pb-name">${p.name}${done?' ✓':''}</div><div class="pb-deadline">${done?'目标达成！':`还差 ${sym}${fmt(Math.max(0,p.target-p.current),pc)}`}</div></div>
+        <div class="pb-amts"><div class="pb-cur">${sym}${fmt(p.current,pc)}</div><div class="pb-tgt">/ ${sym}${fmt(p.target,pc)}</div></div>
+      </div>
+      <div class="pb-bar-bg"><div class="pb-bar" style="width:${pct}%"></div></div>
+      <div class="pb-pct">${pct}%</div>
+    </div>`;
+  }).join('');
+}
+
+let pbEditId=null;
+function openPbDlg(){
+  pbEditId=null;
+  document.getElementById('pbDlgTitle').textContent='🐷 添加存钱目标';
+  document.getElementById('pbName').value='';
+  document.getElementById('pbTarget').value='';
+  document.getElementById('pbCurrent').value='';
+  S.pbIcon=0;
+  document.getElementById('pbIconPick').innerHTML=PB_ICONS.map((ic,i)=>`<div class="ip-opt${i===0?' sel':''}" onclick="pickPbIcon(${i})">${ic}</div>`).join('');
+  document.getElementById('pbDlg').classList.add('on');
+}
+function closePbDlg(){ document.getElementById('pbDlg').classList.remove('on'); }
+function pickPbIcon(i){ S.pbIcon=i; document.querySelectorAll('#pbIconPick .ip-opt').forEach((el,j)=>el.classList.toggle('sel',j===i)); }
+function savePb(){
+  const name=document.getElementById('pbName').value.trim();
+  const target=parseFloat(document.getElementById('pbTarget').value)||0;
+  const current=parseFloat(document.getElementById('pbCurrent').value)||0;
+  if(!name||target<=0){ showToast('请填写名称和目标金额','warn'); return; }
+  db.savings.push({id:uid(),name,target,current,icon:PB_ICONS[S.pbIcon||0]});
+  saveDB(); closePbDlg(); renderPbList();
+  showToast('✅ 存钱目标已添加','ok');
+}
+
+let pbActId=null;
+function openPbAct(id){
+  pbActId=id;
+  const p=db.savings.find(x=>x.id===id); if(!p) return;
+  const pc=db.settings.primCur,sym=getCur(pc).sym;
+  document.getElementById('pbActTitle').textContent=`${p.icon} ${p.name}`;
+  document.getElementById('pbActContent').innerHTML=`<div style="font-size:13px;color:var(--t2);text-align:center;line-height:1.6">已存 <b style="color:var(--cyan)">${sym}${fmt(p.current,pc)}</b> / ${sym}${fmt(p.target,pc)}<br>还差 <b style="color:var(--purple)">${sym}${fmt(Math.max(0,p.target-p.current),pc)}</b></div>`;
+  document.getElementById('pbActAmount').value='';
+  document.getElementById('pbActDlg').classList.add('on');
+}
+function closePbAct(){ document.getElementById('pbActDlg').classList.remove('on'); }
+function pbAct(type){
+  const p=db.savings.find(x=>x.id===pbActId); if(!p) return;
+  const amt=parseFloat(document.getElementById('pbActAmount').value); if(!amt||amt<=0){ showToast('请输入金额','warn'); return; }
+  if(type==='deposit'){ p.current+=amt; showToast(`💰 存入 ${getCur(db.settings.primCur).sym}${fmt(amt,db.settings.primCur)}`,'ok'); }
+  else{ p.current=Math.max(0,p.current-amt); showToast(`💸 取出 ${getCur(db.settings.primCur).sym}${fmt(amt,db.settings.primCur)}`,'ok'); }
+  if(p.current>=p.target&&p.target>0&&type==='deposit') showToast(`🎉 恭喜达成目标「${p.name}」！`,'ok');
+  saveDB(); closePbAct(); renderPbList();
+}
+function deletePb(){
+  db.savings=db.savings.filter(p=>p.id!==pbActId); saveDB(); closePbAct(); renderPbList();
+  showToast('已删除','ok');
+}
+
+// ═══════════════════════════════════════
+// AA SPLIT
+// ═══════════════════════════════════════
+function setCalcMode(mode){
+  document.getElementById('calcModeStd').classList.toggle('act',mode==='std');
+  document.getElementById('calcModeAA').classList.toggle('act',mode==='aa');
+  document.getElementById('aaSection').classList.toggle('on',mode==='aa');
+  document.getElementById('calcDispEl').style.display=mode==='aa'?'none':'';
+  document.getElementById('calcGridEl').style.display=mode==='aa'?'none':'';
+  if(mode==='aa') calcAA();
+}
+function calcAA(){
+  const total=parseFloat(document.getElementById('aaTotal').value)||0;
+  const people=parseFloat(document.getElementById('aaPeople').value)||1;
+  const tip=parseFloat(document.getElementById('aaTip').value)||0;
+  const grand=total*(1+tip/100);
+  const per=people>0?grand/people:0;
+  const sym=getCur(db.settings.primCur).sym;
+  document.getElementById('aaPerPerson').textContent=sym+fmt(per,db.settings.primCur);
+  document.getElementById('aaTotalDisplay').textContent=`总计 ${sym}${fmt(grand,db.settings.primCur)} · ${people}人均分${tip>0?` · 含${tip}%加成`:''}`;
+}
+
+// ═══════════════════════════════════════
+// THEME PICKER
+// ═══════════════════════════════════════
+function renderThemes(){
+  const el=document.getElementById('themeRow'); if(!el) return;
+  el.innerHTML=THEMES.map(t=>`<div class="theme-opt tp-${t.id}${db.theme===t.id?' sel':''}" onclick="pickTheme('${t.id}')" title="${t.name}"></div>`).join('');
+}
+function pickTheme(id){
+  db.theme=id; saveDB(); applyTheme(); renderThemes();
+  showToast(`🎨 已切换至「${THEMES.find(t=>t.id===id).name}」主题`,'ok');
 }
 
 // ═══════════════════════════════════════
@@ -1028,7 +1319,7 @@ function switchTab(tab){
   else if(tab==='cal') renderCalendar();
   else if(tab==='bills') renderBills();
   else if(tab==='stats') renderStats();
-  else if(tab==='mine'){ renderAccs(); renderSummary(); }
+  else if(tab==='mine'){ renderAccs(); renderSummary(); renderPbList(); renderThemes(); }
 }
 
 function changeMonth(d){
@@ -1154,7 +1445,7 @@ function refreshAll(){
   else if(S.tab==='cal') renderCalendar();
   else if(S.tab==='bills') renderBills();
   else if(S.tab==='stats') renderStats();
-  else if(S.tab==='mine'){ renderAccs(); renderSummary(); }
+  else if(S.tab==='mine'){ renderAccs(); renderSummary(); renderPbList(); }
   else renderHome();
   renderSummary();
 }
@@ -1390,7 +1681,7 @@ function showToast(msg,type=''){
 // ═══════════════════════════════════════
 // BACKDROP CLOSE
 // ═══════════════════════════════════════
-['addModal','confirmDlg','detailDlg','dayModal','accDlg','settingsModal'].forEach(id=>{
+['addModal','confirmDlg','detailDlg','dayModal','accDlg','settingsModal','pbDlg','pbActDlg'].forEach(id=>{
   const el=document.getElementById(id);
   if(el) el.addEventListener('click',function(e){ if(e.target===this) this.classList.remove('on'); });
 });
