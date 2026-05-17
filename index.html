@@ -310,15 +310,11 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .imp-prev-meta{color:var(--t2);font-size:11px;margin-top:1px}
 .imp-prev-amt{font-weight:800;flex-shrink:0;font-size:13px}
 
-/* ── Cute Background Decorations ── */
-.bg-deco{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.bg-deco span{position:absolute;animation:floatY ease-in-out infinite;filter:saturate(.8)}
-@keyframes floatY{
-  0%,100%{transform:translateY(0) rotate(0deg)}
-  25%{transform:translateY(-12px) rotate(4deg)}
-  50%{transform:translateY(-20px) rotate(-3deg)}
-  75%{transform:translateY(-10px) rotate(5deg)}
-}
+/* ── Cute Background Pattern (dense tiled animals) ── */
+.bg-deco{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;display:grid;grid-template-columns:repeat(5,1fr);grid-auto-rows:78px;padding:8px 0;opacity:.16;user-select:none}
+.bg-deco span{display:flex;align-items:center;justify-content:center;font-size:42px;filter:saturate(1.1) drop-shadow(0 2px 4px rgba(0,0,0,.3))}
+body.t-sakura .bg-deco{opacity:.22}
+body.t-sunset .bg-deco{opacity:.2}
 
 /* ── Bills filter chips ── */
 .filter-bar{display:flex;gap:8px;padding:10px 12px;overflow-x:auto;-webkit-overflow-scrolling:touch}
@@ -758,7 +754,7 @@ body.t-sunset{
         <div style="margin-top:6px"><b style="color:#1677FF">支付宝：</b>我的 → 账单 → 右上"···" → 开具交易流水证明 → 用于个人</div>
         <div class="import-tip">💡 邮箱收到压缩包后解压，得到 CSV 文件，传到这里即可</div>
       </div>
-      <label class="import-pick-btn">📤 选择 CSV 文件<input type="file" accept=".csv,.txt" style="display:none" onchange="handleImportFile(event)" id="importFileInput"></label>
+      <label class="import-pick-btn">📤 选择文件（支持 CSV / Excel）<input type="file" accept=".csv,.txt,.xlsx,.xls" style="display:none" onchange="handleImportFile(event)" id="importFileInput"></label>
       <div id="importResult"></div>
     </div>
   </div>
@@ -909,28 +905,25 @@ function applyTheme(){
 applyTheme();
 
 // ═══════════════════════════════════════
-// CUTE BACKGROUND DECORATIONS
+// CUTE BACKGROUND PATTERN (dense tiled animals)
 // ═══════════════════════════════════════
 function renderBgDeco(){
-  const items=[
-    {e:'🐷',s:34},{e:'🐰',s:28},{e:'🐱',s:30},{e:'🐻',s:32},
-    {e:'🐼',s:28},{e:'🐨',s:30},{e:'🦊',s:26},{e:'🐸',s:24},
-    {e:'⭐',s:18},{e:'✨',s:16},{e:'💫',s:20},{e:'💝',s:18},
-    {e:'☁️',s:32},{e:'🌟',s:22},{e:'🐹',s:26},{e:'🐧',s:28},
-    {e:'🦄',s:30},{e:'🌸',s:22},{e:'🍀',s:18},{e:'🎀',s:22},
-    {e:'🌈',s:26},{e:'🎈',s:24},{e:'🍭',s:22},{e:'🐮',s:28},
-  ];
-  // Deterministic positions for stable layout
-  const seed=(i,m)=>((i*9301+49297)%233280)/233280*m;
+  // Pig/cow/chicken focused mix, like reference wallpaper
+  const animals=['🐷','🐮','🐔','🐷','🐰','🐮','🐔','🐷','🐱','🐻','🐮','🐷','🐔','🐼','🐰','🐷','🐮','🦊','🐔','🐷','🐱','🐮','🐹','🐔'];
   const wrap=document.getElementById('bgDeco'); if(!wrap) return;
-  wrap.innerHTML=items.map((it,i)=>{
-    const left=(seed(i+1,90)+5).toFixed(1);
-    const top=(seed(i+17,90)+5).toFixed(1);
-    const delay=seed(i+5,6).toFixed(1);
-    const dur=(7+seed(i+9,6)).toFixed(1);
-    const op=(0.06+seed(i+3,0.07)).toFixed(2);
-    return `<span style="left:${left}%;top:${top}%;font-size:${it.s}px;opacity:${op};animation-delay:${delay}s;animation-duration:${dur}s">${it.e}</span>`;
-  }).join('');
+  // Need enough cells to fill viewport - ~14 rows × 5 cols = 70 emojis
+  const total=80;
+  let html='';
+  for(let i=0;i<total;i++){
+    const animal=animals[i%animals.length];
+    const row=Math.floor(i/5);
+    // brick pattern: odd rows offset slightly
+    const offsetX=row%2===1?'translateX(40%)':'translateX(-10%)';
+    const rotate=((i*7)%24)-12;
+    const scale=0.9+((i*13)%30)/100;
+    html+=`<span style="transform:${offsetX} rotate(${rotate}deg) scale(${scale})">${animal}</span>`;
+  }
+  wrap.innerHTML=html;
 }
 renderBgDeco();
 
@@ -1672,14 +1665,19 @@ function getOrCreateAcc(name,icon,color){
 let pendingImport=null;
 
 function parseBillCSV(text){
-  const rows=parseCSV(text);
+  return parseBillRows(parseCSV(text));
+}
+
+function parseBillRows(rows){
+  // normalize all cells to strings
+  rows=rows.map(r=>(r||[]).map(c=>c==null?'':String(c)));
   // find header row
   let hdrIdx=-1;
   for(let i=0;i<rows.length&&i<30;i++){
     const r=rows[i].join('|');
     if(r.includes('收/支')&&(r.includes('交易时间')||r.includes('交易创建时间')||r.includes('付款时间'))){ hdrIdx=i; break; }
   }
-  if(hdrIdx<0) return {error:'未识别为微信或支付宝账单格式'};
+  if(hdrIdx<0) return {error:'未识别为微信或支付宝账单格式（请确认是导出的账单文件）'};
   const hdr=rows[hdrIdx].map(s=>s.trim());
   const isWx=hdr.some(c=>c.includes('交易时间'))&&hdr.some(c=>c.includes('支付方式'));
   const source=isWx?'微信支付':'支付宝';
@@ -1726,12 +1724,22 @@ function closeImport(){ document.getElementById('importModal').classList.remove(
 
 function handleImportFile(e){
   const file=e.target.files[0]; if(!file) return;
+  const ext=(file.name.split('.').pop()||'').toLowerCase();
   document.getElementById('importResult').innerHTML='<div style="text-align:center;padding:20px;color:var(--t2);font-size:13px">⏳ 解析中…</div>';
   const reader=new FileReader();
   reader.onload=ev=>{
     try{
-      const text=decodeCSV(ev.target.result);
-      const result=parseBillCSV(text);
+      let result;
+      if(ext==='xlsx'||ext==='xls'){
+        const data=new Uint8Array(ev.target.result);
+        const wb=XLSX.read(data,{type:'array',cellDates:false,cellNF:false,cellText:true});
+        const sheet=wb.Sheets[wb.SheetNames[0]];
+        const rows=XLSX.utils.sheet_to_json(sheet,{header:1,raw:false,defval:''});
+        result=parseBillRows(rows);
+      } else {
+        const text=decodeCSV(ev.target.result);
+        result=parseBillCSV(text);
+      }
       if(result.error){ document.getElementById('importResult').innerHTML=`<div style="text-align:center;padding:20px;color:var(--red);font-size:13px">❌ ${result.error}</div>`; return; }
       if(!result.txs.length){ document.getElementById('importResult').innerHTML='<div style="text-align:center;padding:20px;color:var(--t2);font-size:13px">⚠️ 未找到有效交易记录</div>'; return; }
       pendingImport=result;
