@@ -287,6 +287,29 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 
 ::-webkit-scrollbar{width:0;height:0}
 
+/* ── Import Modal ── */
+.import-guide{background:var(--glass2);border:1px solid var(--gb2);border-radius:14px;padding:14px;margin-bottom:14px;font-size:13px;line-height:1.7;color:var(--t2)}
+.import-guide-title{color:var(--text);font-weight:700;margin-bottom:8px;font-size:14px}
+.import-guide b{color:var(--p-light)}
+.import-tip{color:var(--yellow);font-size:12px;margin-top:8px}
+.import-pick-btn{display:block;width:100%;text-align:center;padding:16px;background:linear-gradient(135deg,var(--purple),var(--p-glow));color:#fff;border:none;border-radius:14px;font-size:15px;font-weight:800;cursor:pointer;letter-spacing:.5px;box-shadow:0 0 14px var(--pg);margin-bottom:14px}
+.import-pick-btn:active{transform:scale(.98)}
+.imp-stats{background:linear-gradient(135deg,var(--bg-tint1),var(--bg-tint2));border:1px solid var(--gb);border-radius:14px;padding:14px;margin-bottom:14px}
+.imp-source{font-size:13px;color:var(--t2);margin-bottom:6px}
+.imp-source b{color:var(--cyan);font-size:14px}
+.imp-counts{display:flex;justify-content:space-around;margin-top:8px;padding-top:10px;border-top:1px solid var(--gb2)}
+.imp-stat{text-align:center}
+.imp-stat-val{font-size:18px;font-weight:800}
+.imp-stat-lbl{font-size:10px;color:var(--t2);margin-top:2px}
+.imp-preview{background:var(--glass2);border:1px solid var(--gb2);border-radius:14px;overflow:hidden;margin-bottom:14px;max-height:300px;overflow-y:auto}
+.imp-prev-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--gb2);font-size:12px}
+.imp-prev-row:last-child{border:none}
+.imp-prev-ico{font-size:20px}
+.imp-prev-info{flex:1;min-width:0}
+.imp-prev-name{font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.imp-prev-meta{color:var(--t2);font-size:11px;margin-top:1px}
+.imp-prev-amt{font-weight:800;flex-shrink:0;font-size:13px}
+
 /* ── Cute Background Decorations ── */
 .bg-deco{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 .bg-deco span{position:absolute;animation:floatY ease-in-out infinite;filter:saturate(.8)}
@@ -545,6 +568,10 @@ body.t-sunset{
             <span class="srow-val" id="limitDisplay"></span>
             <span class="srow-arr">›</span>
           </div>
+          <div class="srow" onclick="openImport()">
+            <span class="srow-ico">📲</span><span class="srow-txt">导入微信/支付宝账单</span>
+            <span class="srow-arr">›</span>
+          </div>
           <div class="srow" onclick="exportExcel()">
             <span class="srow-ico">📊</span><span class="srow-txt">导出 Excel 账单</span>
             <span class="srow-arr">›</span>
@@ -714,6 +741,26 @@ body.t-sunset{
     <div class="sec-lbl" style="padding:0 0 8px">选择图标</div>
     <div class="icon-pick" id="iconPick"></div>
     <div class="dlg-btns"><button class="btn-c" onclick="closeAccDlg()">取消</button><button class="btn-p" onclick="saveAcc()">添加</button></div>
+  </div>
+</div>
+
+<!-- Import Modal -->
+<div class="overlay" id="importModal">
+  <div class="sheet">
+    <div class="sheet-hd">
+      <span class="sheet-title">📲 导入账单</span>
+      <button class="x-btn" onclick="closeImport()">✕</button>
+    </div>
+    <div style="padding:14px 16px 16px">
+      <div class="import-guide">
+        <div class="import-guide-title">📱 如何导出账单（发到邮箱）：</div>
+        <div><b style="color:#07C160">微信支付：</b>我 → 服务 → 钱包 → 账单 → 右上"···" → 下载账单 → 用于个人对账</div>
+        <div style="margin-top:6px"><b style="color:#1677FF">支付宝：</b>我的 → 账单 → 右上"···" → 开具交易流水证明 → 用于个人</div>
+        <div class="import-tip">💡 邮箱收到压缩包后解压，得到 CSV 文件，传到这里即可</div>
+      </div>
+      <label class="import-pick-btn">📤 选择 CSV 文件<input type="file" accept=".csv,.txt" style="display:none" onchange="handleImportFile(event)" id="importFileInput"></label>
+      <div id="importResult"></div>
+    </div>
   </div>
 </div>
 
@@ -1555,6 +1602,189 @@ function repeatTx(){
 }
 
 // ═══════════════════════════════════════
+// CSV IMPORT (微信/支付宝)
+// ═══════════════════════════════════════
+const CAT_KEYWORDS={
+  food:['餐','饭','食','吃','美团','饿了么','麦当劳','肯德基','星巴克','咖啡','奶茶','早餐','午餐','晚餐','烧烤','火锅','面','寿司','瑞幸','喜茶','沙县','华莱士','汉堡','便当','外卖','茶','酒','零食','水果'],
+  shop: ['淘宝','京东','拼多多','天猫','商城','超市','便利店','7-11','全家','屈臣氏','沃尔玛','家乐福','永辉','优衣库','购物','商店','华润万家'],
+  taxi:['滴滴','公交','地铁','出租车','打车','高铁','火车','航空','机票','飞机','加油','停车','高速','etc','单车','哈罗','青桔','摩拜','油费','油卡'],
+  fun: ['电影','游戏','ktv','网吧','酒吧','迪士尼','steam','腾讯视频','爱奇艺','优酷','b站','哔哩','网易云','音乐','演唱会','门票','epic'],
+  home:['水电','燃气','物业','房租','电费','水费','煤气','网费','宽带','装修','家具','宜家','家居','日用','清洁'],
+  med: ['医院','药','诊所','体检','医疗','挂号','看病','牙科','眼科','药房','药店','保健'],
+  edu: ['学费','培训','书','课','报班','教育','考试','学校','网课','学习','书店'],
+  cloth:['服装','衣','鞋','帽','nike','adidas','耐克','阿迪','zara','h&m','ur','优衣库','安踏','李宁','古驰','lv'],
+  beauty:['化妆','美容','美发','美甲','护肤','spa','理发','洗发','口红','面膜','雅诗兰黛','兰蔻','sk','悦诗风吟'],
+  digi:['手机','数码','苹果','华为','小米','oppo','vivo','电脑','耳机','iPad','airpods','显示器','键盘','充电'],
+  sport:['健身','运动','瑜伽','游泳','跑步','球场','体育','keep','健身房'],
+  travel:['酒店','民宿','携程','旅游','airbnb','飞猪','去哪儿','住宿','旅行','马蜂窝','美团旅行'],
+  pets:['宠物','猫','狗','宠物店','兽医','喵','汪'],
+};
+const INC_KEYWORDS={
+  salary:['工资','薪资','发薪','工薪'],
+  bonus:['奖金','年终','提成','分红'],
+  pt:['兼职','零工','外快'],
+  invest:['理财','基金','股票','利息','收益','分红','余额宝'],
+  redpkt_i:['红包','收红包'],
+  reimb:['报销','退款'],
+};
+
+function guessCategory(text,type){
+  if(!text) return type==='expense'?'other_e':'other_i';
+  const lower=String(text).toLowerCase();
+  const map=type==='expense'?CAT_KEYWORDS:INC_KEYWORDS;
+  for(const[catId,kws]of Object.entries(map))
+    for(const kw of kws) if(lower.includes(kw.toLowerCase())) return catId;
+  return type==='expense'?'other_e':'other_i';
+}
+
+function parseCSV(text){
+  if(text.charCodeAt(0)===0xFEFF) text=text.substr(1);
+  const rows=[]; let cur=[],field='',q=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i],n=text[i+1];
+    if(q){ if(c==='"'&&n==='"'){field+='"';i++;} else if(c==='"') q=false; else field+=c; }
+    else { if(c==='"') q=true; else if(c===',') {cur.push(field);field='';}
+      else if(c==='\r'&&n==='\n'){cur.push(field);rows.push(cur);cur=[];field='';i++;}
+      else if(c==='\n'||c==='\r'){cur.push(field);rows.push(cur);cur=[];field='';}
+      else field+=c; }
+  }
+  if(field||cur.length){cur.push(field);rows.push(cur);}
+  return rows;
+}
+
+function decodeCSV(buf){
+  for(const enc of['utf-8','gbk','gb18030','gb2312','big5']){
+    try{
+      const t=new TextDecoder(enc,{fatal:false}).decode(buf);
+      const bad=(t.match(/�/g)||[]).length;
+      if(t.includes('交易')&&bad<5) return t;
+    }catch{}
+  }
+  return new TextDecoder('utf-8',{fatal:false}).decode(buf);
+}
+
+function getOrCreateAcc(name,icon,color){
+  let acc=db.accs.find(a=>a.name===name);
+  if(!acc){ acc={id:uid(),name,icon,color}; db.accs.push(acc); }
+  return acc;
+}
+
+let pendingImport=null;
+
+function parseBillCSV(text){
+  const rows=parseCSV(text);
+  // find header row
+  let hdrIdx=-1;
+  for(let i=0;i<rows.length&&i<30;i++){
+    const r=rows[i].join('|');
+    if(r.includes('收/支')&&(r.includes('交易时间')||r.includes('交易创建时间')||r.includes('付款时间'))){ hdrIdx=i; break; }
+  }
+  if(hdrIdx<0) return {error:'未识别为微信或支付宝账单格式'};
+  const hdr=rows[hdrIdx].map(s=>s.trim());
+  const isWx=hdr.some(c=>c.includes('交易时间'))&&hdr.some(c=>c.includes('支付方式'));
+  const source=isWx?'微信支付':'支付宝';
+  const iTime=hdr.findIndex(c=>c.includes('交易时间')||c.includes('付款时间')||c.includes('交易创建时间'));
+  const iParty=hdr.findIndex(c=>c.includes('交易对方'));
+  const iItem=hdr.findIndex(c=>c.includes('商品'));
+  const iType=hdr.findIndex(c=>c.includes('收/支'));
+  const iAmt=hdr.findIndex(c=>c.includes('金额'));
+  const iStatus=hdr.findIndex(c=>c.includes('交易状态')||c.includes('当前状态'));
+  const txs=[];
+  for(let i=hdrIdx+1;i<rows.length;i++){
+    const r=rows[i]; if(!r||r.length<3) continue;
+    const time=(r[iTime]||'').trim();
+    if(!time||!time.match(/\d{4}-\d{1,2}-\d{1,2}|\d{4}\/\d{1,2}\/\d{1,2}/)) continue;
+    const typeStr=(r[iType]||'').trim();
+    let type;
+    if(typeStr.includes('支出')) type='expense';
+    else if(typeStr.includes('收入')) type='income';
+    else continue;
+    const status=(r[iStatus]||'').trim();
+    if(status.includes('失败')||status.includes('关闭')||status.includes('已退款')) continue;
+    let amtStr=(r[iAmt]||'').replace(/[¥￥,\s元]/g,'');
+    const amount=parseFloat(amtStr);
+    if(!amount||amount<=0) continue;
+    const party=(r[iParty]||'').trim();
+    const item=(r[iItem]||'').trim();
+    const desc=item||party||'未知';
+    let date=time.split(' ')[0].replace(/\//g,'-');
+    const parts=date.split('-');
+    if(parts.length===3) date=`${parts[0]}-${parts[1].padStart(2,'0')}-${parts[2].padStart(2,'0')}`;
+    const cat=guessCategory(desc+' '+party,type);
+    txs.push({type,amount,currency:'CNY',category:cat,note:desc.slice(0,50),date,_party:party,_item:item});
+  }
+  return {source,txs};
+}
+
+function openImport(){
+  document.getElementById('importResult').innerHTML='';
+  document.getElementById('importFileInput').value='';
+  pendingImport=null;
+  document.getElementById('importModal').classList.add('on');
+}
+function closeImport(){ document.getElementById('importModal').classList.remove('on'); }
+
+function handleImportFile(e){
+  const file=e.target.files[0]; if(!file) return;
+  document.getElementById('importResult').innerHTML='<div style="text-align:center;padding:20px;color:var(--t2);font-size:13px">⏳ 解析中…</div>';
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const text=decodeCSV(ev.target.result);
+      const result=parseBillCSV(text);
+      if(result.error){ document.getElementById('importResult').innerHTML=`<div style="text-align:center;padding:20px;color:var(--red);font-size:13px">❌ ${result.error}</div>`; return; }
+      if(!result.txs.length){ document.getElementById('importResult').innerHTML='<div style="text-align:center;padding:20px;color:var(--t2);font-size:13px">⚠️ 未找到有效交易记录</div>'; return; }
+      pendingImport=result;
+      showImportPreview(result);
+    }catch(err){
+      document.getElementById('importResult').innerHTML=`<div style="text-align:center;padding:20px;color:var(--red);font-size:13px">❌ 解析失败：${err.message||err}</div>`;
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function showImportPreview(result){
+  const inc=result.txs.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
+  const exp=result.txs.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
+  const preview=result.txs.slice(0,6).map(t=>{
+    const cat=getCat(t.type,t.category);
+    const sign=t.type==='income'?'+':'-';
+    return `<div class="imp-prev-row"><div class="imp-prev-ico">${cat.i}</div><div class="imp-prev-info"><div class="imp-prev-name">${t.note}</div><div class="imp-prev-meta">${t.date} · ${cat.n}</div></div><div class="imp-prev-amt" style="color:${t.type==='income'?'var(--green)':'var(--red)'}">${sign}¥${fmt(t.amount,'CNY')}</div></div>`;
+  }).join('');
+  document.getElementById('importResult').innerHTML=`
+    <div class="imp-stats">
+      <div class="imp-source">检测到 <b>${result.source}</b> 账单</div>
+      <div class="imp-counts">
+        <div class="imp-stat"><div class="imp-stat-val" style="color:var(--cyan)">${result.txs.length}</div><div class="imp-stat-lbl">总笔数</div></div>
+        <div class="imp-stat"><div class="imp-stat-val" style="color:var(--red)">¥${fmt(exp,'CNY')}</div><div class="imp-stat-lbl">支出</div></div>
+        <div class="imp-stat"><div class="imp-stat-val" style="color:var(--green)">¥${fmt(inc,'CNY')}</div><div class="imp-stat-lbl">收入</div></div>
+      </div>
+    </div>
+    <div class="imp-preview">${preview}${result.txs.length>6?`<div style="text-align:center;padding:10px;color:var(--t3);font-size:11px">…还有 ${result.txs.length-6} 条</div>`:''}</div>
+    <button class="confirm-btn" style="border-radius:14px;margin-bottom:0" onclick="confirmImport()">✅ 确认导入 ${result.txs.length} 条</button>`;
+}
+
+function confirmImport(){
+  if(!pendingImport) return;
+  const isWx=pendingImport.source==='微信支付';
+  const acc=getOrCreateAcc(isWx?'微信':'支付宝',isWx?'💚':'💙',isWx?'#07C160':'#1677FF');
+  // de-duplicate against existing
+  const existing=new Set(db.txs.map(t=>`${t.date}|${t.amount}|${t.type}|${t.note||''}`));
+  let added=0,skipped=0;
+  pendingImport.txs.forEach(t=>{
+    const key=`${t.date}|${t.amount}|${t.type}|${t.note||''}`;
+    if(existing.has(key)){ skipped++; return; }
+    db.txs.push({id:uid(),type:t.type,amount:t.amount,currency:'CNY',category:t.category,account:acc.id,note:t.note,date:t.date});
+    added++;
+  });
+  saveDB();
+  closeImport();
+  refreshAll();
+  showToast(`✅ 导入成功：${added} 条${skipped>0?`，跳过 ${skipped} 条重复`:''}`,'ok');
+  pendingImport=null;
+}
+
+// ═══════════════════════════════════════
 // BACKUP & RESTORE
 // ═══════════════════════════════════════
 function exportBackup(){
@@ -1745,7 +1975,7 @@ function showToast(msg,type=''){
 // ═══════════════════════════════════════
 // BACKDROP CLOSE
 // ═══════════════════════════════════════
-['addModal','confirmDlg','detailDlg','dayModal','accDlg','settingsModal','pbDlg','pbActDlg'].forEach(id=>{
+['addModal','confirmDlg','detailDlg','dayModal','accDlg','settingsModal','pbDlg','pbActDlg','importModal'].forEach(id=>{
   const el=document.getElementById(id);
   if(el) el.addEventListener('click',function(e){ if(e.target===this) this.classList.remove('on'); });
 });
