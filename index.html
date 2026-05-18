@@ -404,6 +404,108 @@ body:not(.f-piggy) #pbSection{display:none}
 body:not(.f-insights) #insSection{display:none}
 body:not(.f-compare) #cmpGrid{display:none}
 
+/* ── Mood picker ── */
+.mood-row{display:flex;gap:8px;padding:6px 14px 4px;justify-content:center}
+.mood-btn{flex:1;max-width:60px;padding:8px 0;background:var(--glass2);border:1.5px solid var(--gb);border-radius:12px;font-size:24px;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.mood-btn:active{transform:scale(.9)}
+.mood-btn.sel{border-color:var(--purple);background:rgba(139,92,246,.18);box-shadow:0 0 10px var(--pg)}
+.tx-mood{font-size:14px;margin-left:4px;opacity:.85}
+
+/* ── Photo ── */
+.photo-row{display:flex;gap:8px;padding:6px 14px;align-items:center}
+.photo-btn{flex:1;padding:10px;background:var(--glass2);border:1.5px dashed var(--gb);border-radius:12px;font-size:13px;color:var(--t2);cursor:pointer;text-align:center}
+.photo-preview{width:50px;height:50px;border-radius:10px;object-fit:cover;border:1.5px solid var(--gb)}
+.photo-thumb{max-width:100%;max-height:200px;border-radius:10px;margin-top:8px;display:block;cursor:pointer}
+
+/* ── Pig Avatar ── */
+.pig-avatar{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;background:linear-gradient(135deg,var(--bg-tint1),var(--bg-tint2));border:1px solid var(--gb);border-radius:14px;font-size:12px;font-weight:700;color:var(--text);margin-left:6px}
+.pig-avatar-big{font-size:18px}
+
+/* ── Achievement Grid ── */
+.ach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px 14px 4px}
+.ach-card{background:var(--glass2);border:1px solid var(--gb2);border-radius:14px;padding:12px 8px;text-align:center;cursor:default;transition:all .2s;position:relative;overflow:hidden}
+.ach-card.unlocked{border-color:var(--purple);background:linear-gradient(135deg,var(--bg-tint1),var(--bg-tint2));box-shadow:0 0 12px var(--pg)}
+.ach-ico{font-size:32px;display:block;line-height:1;margin-bottom:6px;filter:grayscale(1) opacity(.4)}
+.ach-card.unlocked .ach-ico{filter:none}
+.ach-name{font-size:11px;font-weight:700;color:var(--text)}
+.ach-desc{font-size:10px;color:var(--t2);margin-top:3px;line-height:1.3}
+.ach-card.unlocked .ach-name{background:linear-gradient(135deg,var(--p-light),var(--c-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.level-banner{background:linear-gradient(135deg,var(--purple),var(--cyan));border-radius:16px;padding:18px;text-align:center;color:#fff;margin:14px 14px 0;box-shadow:0 4px 20px var(--pg)}
+.level-pig{font-size:48px;line-height:1}
+.level-num{font-size:24px;font-weight:900;margin-top:6px}
+.level-name{font-size:13px;opacity:.9;margin-top:2px}
+.level-progress{height:6px;background:rgba(255,255,255,.25);border-radius:3px;margin-top:10px;overflow:hidden}
+.level-progress-bar{height:100%;background:#fff;border-radius:3px;transition:width .5s}
+
+/* ── Challenges ── */
+.chal-card{background:var(--glass);border:1px solid var(--gb2);border-radius:14px;padding:14px;margin-bottom:10px}
+.chal-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.chal-ico{font-size:24px}
+.chal-info{flex:1}
+.chal-name{font-size:14px;font-weight:700}
+.chal-prog-bg{height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+body.light .chal-prog-bg{background:rgba(0,0,0,.06)}
+.chal-prog{height:100%;background:linear-gradient(90deg,var(--green),var(--cyan));border-radius:3px;transition:width .4s}
+.chal-prog.done{background:linear-gradient(90deg,var(--purple),var(--cyan))}
+.chal-stat{font-size:11px;color:var(--t2);margin-top:5px;display:flex;justify-content:space-between}
+
+/* ── Subscriptions ── */
+.sub-card{background:var(--glass);border:1px solid var(--gb2);border-radius:14px;padding:14px;margin-bottom:8px;display:flex;align-items:center;gap:12px}
+.sub-ico{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;background:var(--bg-tint1)}
+.sub-info{flex:1;min-width:0}
+.sub-name{font-size:14px;font-weight:700}
+.sub-meta{font-size:11px;color:var(--t2);margin-top:2px}
+.sub-amt{font-size:15px;font-weight:800;color:var(--purple);flex-shrink:0}
+.sub-del{color:var(--red);font-size:12px;padding:4px 6px;cursor:pointer;background:none;border:none;margin-left:6px}
+
+/* ── Credit Cards ── */
+.card-item{background:linear-gradient(135deg,var(--purple),var(--pd));border-radius:16px;padding:16px;color:#fff;margin-bottom:10px;position:relative;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.2)}
+.card-item::before{content:'💳';position:absolute;right:-10px;top:-10px;font-size:80px;opacity:.15}
+.card-name{font-size:15px;font-weight:700}
+.card-num{font-size:18px;font-weight:600;letter-spacing:2px;margin-top:8px;font-family:monospace}
+.card-meta{display:flex;justify-content:space-between;margin-top:12px;font-size:11px;opacity:.92}
+.card-stat{font-size:13px;font-weight:700;margin-top:2px}
+.card-del{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:50%;width:24px;height:24px;font-size:12px;cursor:pointer;z-index:2}
+
+/* ── Year Wrapped ── */
+.yw-card{background:linear-gradient(135deg,var(--purple),var(--cyan));border-radius:20px;padding:24px 18px;color:#fff;margin-bottom:12px;text-align:center;box-shadow:0 4px 24px var(--pg)}
+.yw-year{font-size:14px;opacity:.85;letter-spacing:2px}
+.yw-title{font-size:24px;font-weight:900;margin-top:6px}
+.yw-list{padding:0 14px 14px}
+.yw-item{background:var(--glass);border:1px solid var(--gb2);border-radius:14px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px}
+.yw-emj{font-size:30px;flex-shrink:0}
+.yw-text{flex:1}
+.yw-lbl{font-size:11px;color:var(--t2);text-transform:uppercase;letter-spacing:.5px}
+.yw-val{font-size:18px;font-weight:800;color:var(--text);margin-top:2px}
+
+/* ── Diary ── */
+.diary-box{margin:10px 12px;padding:12px;background:var(--glass2);border:1.5px solid var(--gb);border-radius:12px}
+.diary-lbl{font-size:11px;color:var(--t2);margin-bottom:6px;font-weight:600}
+.diary-box textarea{width:100%;background:none;border:none;outline:none;resize:none;font-size:13px;color:var(--text);font-family:inherit;line-height:1.5;min-height:60px}
+.diary-box textarea::placeholder{color:var(--t3)}
+
+/* ── Prediction / Report ── */
+.pred-card{background:linear-gradient(135deg,var(--bg-tint1),var(--bg-tint2));border:1px solid var(--gb);border-radius:14px;padding:14px;margin-bottom:12px}
+.pred-row{display:flex;align-items:center;gap:10px}
+.pred-ico{font-size:28px}
+.pred-info{flex:1}
+.pred-lbl{font-size:11px;color:var(--t2);text-transform:uppercase}
+.pred-val{font-size:18px;font-weight:800;color:var(--text);margin-top:2px}
+.pred-sub{font-size:11px;color:var(--t2);margin-top:3px}
+
+/* ── Custom categories ── */
+.cc-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--glass2);border:1px solid var(--gb2);border-radius:11px;margin-bottom:8px}
+.cc-ico{font-size:22px}
+.cc-name{flex:1;font-size:14px;font-weight:600}
+.cc-del{background:none;border:none;color:var(--red);font-size:14px;cursor:pointer;padding:4px 8px}
+
+/* ── Mine pro section ── */
+.pro-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:16px}
+.pro-tile{background:var(--glass);border:1px solid var(--gb2);border-radius:14px;padding:14px 10px;text-align:center;cursor:pointer;transition:all .15s}
+.pro-tile:active{transform:scale(.95);background:rgba(139,92,246,.1)}
+.pro-tile-ico{font-size:28px;margin-bottom:6px}
+.pro-tile-name{font-size:12px;font-weight:700;color:var(--text)}
+
 /* ── Import Modal ── */
 .import-guide{background:var(--glass2);border:1px solid var(--gb2);border-radius:14px;padding:14px;margin-bottom:14px;font-size:13px;line-height:1.7;color:var(--t2)}
 .import-guide-title{color:var(--text);font-weight:700;margin-bottom:8px;font-size:14px}
@@ -588,7 +690,7 @@ body.t-sunset{
           <span class="quote-text" id="quoteText">欢迎使用小猪的记账本~</span>
         </div>
         <div class="hero">
-          <div class="hero-lbl">本月净结余</div>
+          <div class="hero-lbl">本月净结余<span class="pig-avatar" id="pigAvatar"><span class="pig-avatar-big">🐷</span><span id="pigLvName">Lv.0</span></span></div>
           <div class="hero-amt" id="heroBal">HK$0.00</div>
           <div class="hero-cur" id="heroCurLine">港币 · 本月</div>
         </div>
@@ -644,6 +746,7 @@ body.t-sunset{
     <!-- Stats -->
     <div class="view" id="view-stats">
       <div class="stats-wrap">
+        <div class="pred-card" id="predCard"></div>
         <div class="cmp-grid" id="cmpGrid"></div>
         <div class="sc"><h3>收支趋势（近6个月）</h3><div class="chart-box"><canvas id="barChart"></canvas></div></div>
         <div class="sc" id="pieCard"><h3>本月支出分类</h3><div class="chart-box"><canvas id="pieChart"></canvas></div></div>
@@ -691,6 +794,17 @@ body.t-sunset{
             <input type="number" id="monthBudget" placeholder="0 = 不限" min="0" onchange="saveMonthBudget()" style="flex:1;background:var(--glass2);border:1px solid var(--gb);color:var(--text);padding:8px 12px;border-radius:8px;font-size:14px;font-weight:700;outline:none;text-align:right">
             <span style="font-size:13px;color:var(--t2)" id="bgCurSym">HK$</span>
           </div>
+        </div>
+        <div class="mine-sec-title">🎮 进阶功能</div>
+        <div class="pro-grid">
+          <div class="pro-tile" onclick="openAchievements()"><div class="pro-tile-ico">🏆</div><div class="pro-tile-name">成就 & 等级</div></div>
+          <div class="pro-tile" onclick="openChallenges()"><div class="pro-tile-ico">🎯</div><div class="pro-tile-name">节俭挑战</div></div>
+          <div class="pro-tile" onclick="openYearWrapped()"><div class="pro-tile-ico">📅</div><div class="pro-tile-name">年度回顾</div></div>
+          <div class="pro-tile" onclick="openMonthReport()"><div class="pro-tile-ico">📝</div><div class="pro-tile-name">本月月报</div></div>
+          <div class="pro-tile" onclick="openSubs()"><div class="pro-tile-ico">🔄</div><div class="pro-tile-name">订阅服务</div></div>
+          <div class="pro-tile" onclick="openCards()"><div class="pro-tile-ico">💳</div><div class="pro-tile-name">我的卡片</div></div>
+          <div class="pro-tile" onclick="openCustomCats()"><div class="pro-tile-ico">🏷️</div><div class="pro-tile-name">自定义分类</div></div>
+          <div class="pro-tile" onclick="openDiaryList()"><div class="pro-tile-ico">📓</div><div class="pro-tile-name">我的日记</div></div>
         </div>
         <div class="mine-sec-title" id="pbSecTitle">🐷 小猪存钱罐</div>
         <div id="pbList"></div>
@@ -775,6 +889,17 @@ body.t-sunset{
     <div class="cat-grid" id="catGrid"></div>
     <div class="sec-lbl">账户</div>
     <div class="acc-chips" id="accChips"></div>
+    <div class="sec-lbl">心情（可选）</div>
+    <div class="mood-row" id="moodRow">
+      <button class="mood-btn" data-m="1" onclick="pickMood(1)">😊</button>
+      <button class="mood-btn" data-m="2" onclick="pickMood(2)">😐</button>
+      <button class="mood-btn" data-m="3" onclick="pickMood(3)">😟</button>
+      <button class="mood-btn" data-m="4" onclick="pickMood(4)">😡</button>
+    </div>
+    <div class="photo-row">
+      <label class="photo-btn" id="photoBtn">📷 拍照 / 选图（可选）<input type="file" accept="image/*" capture="environment" style="display:none" onchange="handlePhoto(event)"></label>
+      <img id="photoPrev" class="photo-preview" style="display:none">
+    </div>
     <div class="form-row"><span style="font-size:16px">📅</span><input type="date" id="dateIn"></div>
     <div class="form-row"><span style="font-size:16px">📝</span><input type="text" id="noteIn" placeholder="备注（可选）" maxlength="50"></div>
     <div class="numpad">
@@ -870,8 +995,124 @@ body.t-sunset{
       <div><div class="day-sheet-title" id="dayTitle"></div><div class="day-sum" id="daySumLine"></div></div>
       <button class="x-btn" onclick="closeDayModal()">✕</button>
     </div>
-    <div style="padding:12px 12px 0" id="dayList"></div>
+    <div class="diary-box">
+      <div class="diary-lbl">📝 今日日记</div>
+      <textarea id="diaryText" placeholder="记一句心情、一件小事..." maxlength="300" oninput="saveDiary()"></textarea>
+    </div>
+    <div style="padding:0 12px" id="dayList"></div>
   </div>
+</div>
+
+<!-- Achievements Modal -->
+<div class="overlay" id="achModal">
+  <div class="sheet">
+    <div class="sheet-hd"><span class="sheet-title">🏆 成就 & 等级</span><button class="x-btn" onclick="closeAch()">✕</button></div>
+    <div class="level-banner" id="levelBanner"></div>
+    <div class="sec-lbl" style="margin-top:14px">所有成就</div>
+    <div class="ach-grid" id="achGrid"></div>
+    <div style="height:16px"></div>
+  </div>
+</div>
+
+<!-- Challenges Modal -->
+<div class="overlay" id="chalModal">
+  <div class="sheet">
+    <div class="sheet-hd"><span class="sheet-title">🎯 节俭挑战</span><button class="x-btn" onclick="closeChal()">✕</button></div>
+    <div style="padding:14px 14px 0;font-size:12px;color:var(--t2)">完成挑战可解锁成就～</div>
+    <div id="chalList" style="padding:12px 14px"></div>
+  </div>
+</div>
+
+<!-- Year Wrapped Modal -->
+<div class="overlay" id="ywModal">
+  <div class="sheet">
+    <div class="sheet-hd"><span class="sheet-title">📅 年度回顾</span><button class="x-btn" onclick="closeYW()">✕</button></div>
+    <div id="ywContent"></div>
+  </div>
+</div>
+
+<!-- Month Report Modal -->
+<div class="overlay" id="mrModal">
+  <div class="sheet">
+    <div class="sheet-hd"><span class="sheet-title">📝 本月月报</span><button class="x-btn" onclick="closeMR()">✕</button></div>
+    <div id="mrContent" style="padding:18px 18px 24px;line-height:1.9;font-size:14px;color:var(--text)"></div>
+  </div>
+</div>
+
+<!-- Subscriptions Modal -->
+<div class="overlay" id="subsModal">
+  <div class="sheet">
+    <div class="sheet-hd"><span class="sheet-title">🔄 订阅服务</span><button class="x-btn" onclick="closeSubs()">✕</button></div>
+    <div id="subsTotal" style="padding:14px;font-size:13px;color:var(--t2);text-align:center"></div>
+    <div id="subsList" style="padding:0 14px"></div>
+    <button class="add-acc-btn" onclick="openSubAdd()" style="margin:8px 14px 16px">＋ 添加订阅</button>
+  </div>
+</div>
+
+<!-- Add Subscription Dialog -->
+<div class="acc-dlg" id="subAddDlg">
+  <div class="acc-dlg-box">
+    <h3>➕ 添加订阅</h3>
+    <input type="text" id="subName" placeholder="名称（如 Netflix）" maxlength="20">
+    <input type="number" id="subAmt" placeholder="月费金额" min="0">
+    <input type="number" id="subDay" placeholder="每月扣款日（1-28）" min="1" max="28">
+    <div class="dlg-btns"><button class="btn-c" onclick="closeSubAdd()">取消</button><button class="btn-p" onclick="saveSub()">添加</button></div>
+  </div>
+</div>
+
+<!-- Credit Cards Modal -->
+<div class="overlay" id="cardsModal">
+  <div class="sheet">
+    <div class="sheet-hd"><span class="sheet-title">💳 我的卡片</span><button class="x-btn" onclick="closeCards()">✕</button></div>
+    <div id="cardsList" style="padding:14px"></div>
+    <button class="add-acc-btn" onclick="openCardAdd()" style="margin:0 14px 16px">＋ 添加信用卡</button>
+  </div>
+</div>
+
+<!-- Add Card Dialog -->
+<div class="acc-dlg" id="cardAddDlg">
+  <div class="acc-dlg-box">
+    <h3>💳 添加信用卡</h3>
+    <input type="text" id="cardName" placeholder="卡片名称（如 招行 Visa）" maxlength="20">
+    <input type="text" id="cardLast" placeholder="末 4 位（可选）" maxlength="4">
+    <input type="number" id="cardBill" placeholder="账单日（1-31）" min="1" max="31">
+    <input type="number" id="cardRepay" placeholder="还款日（1-31）" min="1" max="31">
+    <div class="dlg-btns"><button class="btn-c" onclick="closeCardAdd()">取消</button><button class="btn-p" onclick="saveCard()">添加</button></div>
+  </div>
+</div>
+
+<!-- Custom Categories Modal -->
+<div class="overlay" id="ccModal">
+  <div class="sheet">
+    <div class="sheet-hd"><span class="sheet-title">🏷️ 自定义分类</span><button class="x-btn" onclick="closeCC()">✕</button></div>
+    <div class="type-tog" style="margin-top:14px"><button class="tbtn ae" id="ccTypeE" onclick="setCCType('expense')">支出分类</button><button class="tbtn" id="ccTypeI" onclick="setCCType('income')">收入分类</button></div>
+    <div style="padding:14px" id="ccList"></div>
+    <button class="add-acc-btn" onclick="openCCAdd()" style="margin:0 14px 16px">＋ 添加分类</button>
+  </div>
+</div>
+
+<!-- Add Custom Cat Dialog -->
+<div class="acc-dlg" id="ccAddDlg">
+  <div class="acc-dlg-box">
+    <h3>🏷️ 添加分类</h3>
+    <input type="text" id="ccName" placeholder="分类名（如 奶茶 / 副业）" maxlength="6">
+    <div class="sec-lbl" style="padding:0 0 8px">选择图标</div>
+    <div class="icon-pick" id="ccIconPick"></div>
+    <div class="dlg-btns"><button class="btn-c" onclick="closeCCAdd()">取消</button><button class="btn-p" onclick="saveCC()">添加</button></div>
+  </div>
+</div>
+
+<!-- Diary List Modal -->
+<div class="overlay" id="diaryModal">
+  <div class="sheet">
+    <div class="sheet-hd"><span class="sheet-title">📓 我的日记</span><button class="x-btn" onclick="closeDiary()">✕</button></div>
+    <div id="diaryList" style="padding:14px"></div>
+  </div>
+</div>
+
+<!-- Photo Viewer -->
+<div class="dlg" id="photoView" onclick="this.classList.remove('on')">
+  <img id="photoFull" style="max-width:92%;max-height:92dvh;border-radius:14px;cursor:pointer">
 </div>
 
 <!-- Add Account -->
@@ -1251,10 +1492,12 @@ function renderTxList(containerId, txs, compact=false){
 function txItem(t){
   const cat=getCat(t.type,t.category), acc=getAcc(t.account), cur=getCur(t.currency);
   const sign=t.type==='income'?'+':'-';
+  const moodBadge=t.mood?`<span class="tx-mood">${MOOD_EMJ[t.mood]||''}</span>`:'';
+  const photoBadge=t.photo?'<span class="tx-mood">📷</span>':'';
   return `<div class="txi" onclick="showDetail('${t.id}')">
     <div class="cat-bub" style="background:${cat.c}22">${cat.i}</div>
     <div class="txi-info">
-      <div class="txi-name">${cat.n}</div>
+      <div class="txi-name">${cat.n}${moodBadge}${photoBadge}</div>
       <div class="txi-sub">${acc.icon} ${acc.name} · ${cur.flag}${cur.code}${t.note?' · '+t.note:''}</div>
     </div>
     <div class="txi-amt ${t.type}">${sign}${cur.sym}${fmt(t.amount,t.currency)}</div>
@@ -1269,7 +1512,9 @@ function renderHome(){
   renderStreak();
   renderQuote();
   renderBudget();
+  renderPigAvatar();
   renderTxList('homeList', getMonthTxs(S.year,S.month));
+  if(typeof checkAchievements==='function') checkAchievements();
 }
 
 // ═══════════════════════════════════════
@@ -1489,6 +1734,8 @@ function renderCalendar(){
 }
 
 function showDayDetail(dateStr){
+  S._dayDate=dateStr;
+  document.getElementById('diaryText').value=db.diary[dateStr]||'';
   const txs=db.txs.filter(t=>t.date===dateStr);
   const d=new Date(dateStr);
   document.getElementById('dayTitle').textContent=`${d.getMonth()+1}月${d.getDate()}日 ${weekday(dateStr)}`;
@@ -1536,7 +1783,7 @@ function setFilter(f){
 // STATS
 // ═══════════════════════════════════════
 function renderStats(){
-  renderCmp(); renderBar(); renderPie(); renderRank(); renderInsights();
+  renderCmp(); renderBar(); renderPie(); renderRank(); renderInsights(); renderPrediction();
 }
 
 function renderCmp(){
@@ -1734,9 +1981,12 @@ document.getElementById('yearPick').addEventListener('click',function(e){ if(e.t
 function openAdd(){
   S.amt=''; S.type='expense';
   S.cat=EXP_CATS[0].id; S.acc=db.accs[0]?.id||''; S.addCur='HKD';
+  S.addMood=null; S.addPhoto=null;
   document.getElementById('amtVal').textContent='0';
   document.getElementById('noteIn').value='';
   document.getElementById('dateIn').value=todayStr();
+  document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('sel'));
+  document.getElementById('photoPrev').style.display='none';
   setType('expense');
   renderCurRow();
   renderAccChips();
@@ -1761,7 +2011,7 @@ function setType(type){
   renderCatGrid();
 }
 function renderCatGrid(){
-  const cats=S.type==='expense'?EXP_CATS:INC_CATS;
+  const cats=getAllCats(S.type);
   document.getElementById('catGrid').innerHTML=cats.map(c=>
     `<button class="cat-btn${c.id===S.cat?' sel':''}" onclick="pickCat('${c.id}')">
       <span class="cat-ico">${c.i}</span><span class="cat-nm">${c.n}</span>
@@ -1794,10 +2044,14 @@ function saveTx(){
     setTimeout(()=>{ el.style.color=''; el.classList.remove('err'); },400); return;
   }
   const dateVal=document.getElementById('dateIn').value||todayStr();
-  db.txs.push({id:uid(),type:S.type,amount,currency:S.addCur,category:S.cat,
-    account:S.acc,note:document.getElementById('noteIn').value.trim(),date:dateVal});
+  const tx={id:uid(),type:S.type,amount,currency:S.addCur,category:S.cat,
+    account:S.acc,note:document.getElementById('noteIn').value.trim(),date:dateVal};
+  if(S.addMood) tx.mood=S.addMood;
+  if(S.addPhoto) tx.photo=S.addPhoto;
+  db.txs.push(tx);
   saveDB(); closeAdd();
   checkDailyLimit(dateVal, S.addCur);
+  if(typeof checkAchievements==='function') checkAchievements();
   refreshAll();
 }
 
@@ -1842,7 +2096,8 @@ function showDetail(id){
       <tr><td>账户</td><td>${acc.icon} ${acc.name}</td></tr>
       <tr><td>日期</td><td>${tx.date} ${weekday(tx.date)}</td></tr>
       ${tx.note?`<tr><td>备注</td><td>${tx.note}</td></tr>`:''}
-    </table>`;
+      ${tx.mood?`<tr><td>心情</td><td style="font-size:20px">${MOOD_EMJ[tx.mood]||''}</td></tr>`:''}
+    </table>${tx.photo?`<img src="${tx.photo}" class="photo-thumb" onclick="viewPhoto('${tx.photo}')">`:''}`;
   document.getElementById('detailDlg').classList.add('on');
 }
 function closeDetail(){ document.getElementById('detailDlg').classList.remove('on'); }
@@ -1861,6 +2116,344 @@ function repeatTx(){
   renderCatGrid(); renderCurRow(); renderAccChips();
   document.getElementById('addModal').classList.add('on');
 }
+
+// ═══════════════════════════════════════
+// EXTENDED DB STRUCTURES
+// ═══════════════════════════════════════
+if(!db.diary) db.diary={};
+if(!db.subscriptions) db.subscriptions=[];
+if(!db.cards) db.cards=[];
+if(!db.customCats) db.customCats={expense:[],income:[]};
+if(!db.unlockedAch) db.unlockedAch=[];
+if(!db.activeChals) db.activeChals=[];
+
+// ═══════════════════════════════════════
+// MOOD & PHOTO (in add modal)
+// ═══════════════════════════════════════
+const MOOD_EMJ={1:'😊',2:'😐',3:'😟',4:'😡'};
+function pickMood(m){
+  S.addMood=S.addMood===m?null:m;
+  document.querySelectorAll('.mood-btn').forEach(b=>b.classList.toggle('sel',+b.dataset.m===S.addMood));
+}
+function handlePhoto(e){
+  const file=e.target.files[0]; if(!file) return;
+  const img=new Image();
+  img.onload=()=>{
+    const canvas=document.createElement('canvas');
+    const maxDim=720; let w=img.width,h=img.height;
+    if(w>h&&w>maxDim){h=h*maxDim/w;w=maxDim;}
+    else if(h>maxDim){w=w*maxDim/h;h=maxDim;}
+    canvas.width=w;canvas.height=h;
+    canvas.getContext('2d').drawImage(img,0,0,w,h);
+    S.addPhoto=canvas.toDataURL('image/jpeg',0.65);
+    document.getElementById('photoPrev').src=S.addPhoto;
+    document.getElementById('photoPrev').style.display='block';
+    URL.revokeObjectURL(img.src);
+  };
+  img.src=URL.createObjectURL(file);
+}
+function viewPhoto(src){
+  document.getElementById('photoFull').src=src;
+  document.getElementById('photoView').classList.add('on');
+}
+
+// ═══════════════════════════════════════
+// 🐷 PIG LEVEL / AVATAR
+// ═══════════════════════════════════════
+const PIG_LEVELS=[
+  {name:'萌新',emj:'🐷',need:0},
+  {name:'青铜',emj:'🐽',need:5},
+  {name:'白银',emj:'🐷✨',need:15},
+  {name:'黄金',emj:'🐷⭐',need:35},
+  {name:'铂金',emj:'🐷👑',need:70},
+  {name:'钻石',emj:'🐷💎',need:120},
+];
+function pigLevel(){
+  const score=db.txs.length+computeStreak()*2+(db.unlockedAch||[]).length*3;
+  let lv=0; for(let i=PIG_LEVELS.length-1;i>=0;i--){ if(score>=PIG_LEVELS[i].need){lv=i;break;} }
+  return {lv,score,info:PIG_LEVELS[lv],next:PIG_LEVELS[lv+1]||null};
+}
+function renderPigAvatar(){
+  const p=pigLevel();
+  const el=document.getElementById('pigAvatar'); if(!el) return;
+  el.querySelector('.pig-avatar-big').textContent=p.info.emj;
+  document.getElementById('pigLvName').textContent=`Lv.${p.lv} ${p.info.name}`;
+}
+
+// ═══════════════════════════════════════
+// 🏆 ACHIEVEMENTS
+// ═══════════════════════════════════════
+const ACHIEVEMENTS=[
+  {id:'first',i:'🥇',n:'初出茅庐',d:'完成第一笔记账',c:()=>db.txs.length>=1},
+  {id:'week',i:'📆',n:'一周坚持',d:'连续记账 7 天',c:()=>computeStreak()>=7},
+  {id:'month30',i:'🔥',n:'月度达人',d:'连续记账 30 天',c:()=>computeStreak()>=30},
+  {id:'hundred',i:'💯',n:'百日不辍',d:'连续记账 100 天',c:()=>computeStreak()>=100},
+  {id:'pig',i:'🐷',n:'攒钱达人',d:'完成 1 个存钱目标',c:()=>db.savings.some(s=>s.target>0&&s.current>=s.target)},
+  {id:'allcats',i:'🌟',n:'全能记账',d:'用过所有 16 种支出分类',c:()=>{const s=new Set(db.txs.filter(t=>t.type==='expense').map(t=>t.category));return EXP_CATS.every(c=>s.has(c.id));}},
+  {id:'5cur',i:'💱',n:'国际玩家',d:'用过 5 种货币',c:()=>new Set(db.txs.map(t=>t.currency)).size>=5},
+  {id:'100tx',i:'📊',n:'数据控',d:'记录 ≥ 100 条',c:()=>db.txs.length>=100},
+  {id:'budget',i:'💰',n:'预算意识',d:'设置每月预算',c:()=>(db.settings.monthBudget||0)>0},
+  {id:'imported',i:'📲',n:'数据迁移',d:'导入过微信/支付宝账单',c:()=>db.accs.some(a=>(a.name==='微信'||a.name==='支付宝')&&db.txs.some(t=>t.account===a.id))},
+  {id:'multipiggy',i:'🏆',n:'多目标',d:'同时 3 个存钱目标',c:()=>db.savings.length>=3},
+  {id:'mood',i:'😊',n:'有故事的人',d:'记录过 10 次心情',c:()=>db.txs.filter(t=>t.mood).length>=10},
+  {id:'photo',i:'📸',n:'摄影师',d:'附过 5 张照片',c:()=>db.txs.filter(t=>t.photo).length>=5},
+  {id:'diary',i:'📓',n:'日记家',d:'写过 7 篇日记',c:()=>Object.keys(db.diary||{}).length>=7},
+  {id:'theme',i:'🎨',n:'换肤达人',d:'切换过 3 种主题',c:()=>(db.themeUsed||[]).length>=3},
+  {id:'subs',i:'🔄',n:'订阅管家',d:'添加订阅服务',c:()=>db.subscriptions.length>=1},
+  {id:'card',i:'💳',n:'卡片达人',d:'添加 1 张信用卡',c:()=>db.cards.length>=1},
+  {id:'custom',i:'🏷️',n:'个性派',d:'添加自定义分类',c:()=>(db.customCats.expense||[]).length+(db.customCats.income||[]).length>=1},
+];
+function checkAchievements(){
+  const newly=[];
+  ACHIEVEMENTS.forEach(a=>{
+    if(!db.unlockedAch.includes(a.id)&&a.c()){
+      db.unlockedAch.push(a.id); newly.push(a);
+    }
+  });
+  if(newly.length){ saveDB(); newly.forEach(a=>showToast(`🎉 解锁成就「${a.n}」`,'ok')); }
+  return newly;
+}
+function openAchievements(){
+  checkAchievements();
+  const p=pigLevel();
+  const pct=p.next?Math.min(100,(p.score-p.info.need)/(p.next.need-p.info.need)*100):100;
+  document.getElementById('levelBanner').innerHTML=`<div class="level-pig">${p.info.emj}</div><div class="level-num">Lv.${p.lv} ${p.info.name}小猪</div><div class="level-name">${p.next?`再 ${p.next.need-p.score} 分升到「${p.next.name}」`:'已达最高等级 🎉'}</div><div class="level-progress"><div class="level-progress-bar" style="width:${pct}%"></div></div>`;
+  document.getElementById('achGrid').innerHTML=ACHIEVEMENTS.map(a=>{
+    const ok=db.unlockedAch.includes(a.id);
+    return `<div class="ach-card${ok?' unlocked':''}"><div class="ach-ico">${a.i}</div><div class="ach-name">${a.n}</div><div class="ach-desc">${a.d}</div></div>`;
+  }).join('');
+  document.getElementById('achModal').classList.add('on');
+}
+function closeAch(){ document.getElementById('achModal').classList.remove('on'); }
+
+// ═══════════════════════════════════════
+// 🎯 CHALLENGES
+// ═══════════════════════════════════════
+const CHALLENGES=[
+  {id:'no-late-food',i:'🍱',n:'30天少点外卖',d:'本月餐饮记录 ≤ 15 笔',calc:()=>{const txs=getMonthTxs(S.year,S.month).filter(t=>t.type==='expense'&&t.category==='food'); return {cur:txs.length,tgt:15,inv:true};}},
+  {id:'food-budget',i:'🥗',n:'本月餐饮 ≤ HK$1500',d:'',calc:()=>{const pc=db.settings.primCur;const txs=getMonthTxs(S.year,S.month).filter(t=>t.type==='expense'&&t.category==='food'&&t.currency===pc);const v=txs.reduce((s,t)=>s+t.amount,0);return {cur:v,tgt:1500,inv:true,unit:getCur(pc).sym};}},
+  {id:'save-month',i:'💰',n:'本月净结余 ≥ HK$2000',d:'',calc:()=>{const pc=db.settings.primCur;const txs=getMonthTxs(S.year,S.month).filter(t=>t.currency===pc);const inc=txs.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);const exp=txs.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);return {cur:inc-exp,tgt:2000,unit:getCur(pc).sym};}},
+  {id:'streak-7',i:'🔥',n:'连续记账 7 天',d:'',calc:()=>({cur:computeStreak(),tgt:7,unit:'天'})},
+  {id:'no-redpkt',i:'🧧',n:'本月红包支出 = 0',d:'',calc:()=>{const txs=getMonthTxs(S.year,S.month).filter(t=>t.type==='expense'&&t.category==='redpkt');return {cur:txs.length,tgt:0,inv:true,exact:true,unit:'笔'};}},
+];
+function openChallenges(){
+  document.getElementById('chalList').innerHTML=CHALLENGES.map(c=>{
+    const r=c.calc(); const u=r.unit||'';
+    let done,pct,statText;
+    if(r.exact){ done=r.cur===r.tgt; pct=done?100:0; statText=`${r.cur} ${u}`; }
+    else if(r.inv){ done=r.cur<=r.tgt; pct=Math.min(100,Math.max(0,100-(r.cur/r.tgt*100-100)*2)); if(r.cur<=r.tgt) pct=Math.max(50,100-r.cur/r.tgt*50); statText=`${u}${typeof r.cur==='number'?fmt(r.cur,'HKD'):r.cur} / 上限 ${u}${fmt(r.tgt,'HKD')}`; }
+    else { done=r.cur>=r.tgt; pct=Math.min(100,(r.cur/r.tgt)*100); statText=`${u}${typeof r.cur==='number'?fmt(r.cur,'HKD'):r.cur} / ${u}${fmt(r.tgt,'HKD')}`; }
+    return `<div class="chal-card"><div class="chal-top"><div class="chal-ico">${c.i}</div><div class="chal-info"><div class="chal-name">${c.n}${done?' ✓':''}</div><div class="chal-prog-bg"><div class="chal-prog${done?' done':''}" style="width:${pct}%"></div></div><div class="chal-stat"><span>${statText}</span><span>${done?'<b style="color:var(--green)">达成</b>':'进行中'}</span></div></div></div></div>`;
+  }).join('');
+  document.getElementById('chalModal').classList.add('on');
+}
+function closeChal(){ document.getElementById('chalModal').classList.remove('on'); }
+
+// ═══════════════════════════════════════
+// 📅 YEAR WRAPPED
+// ═══════════════════════════════════════
+function openYearWrapped(){
+  const year=S.year;
+  const pc=db.settings.primCur,sym=getCur(pc).sym;
+  const txs=db.txs.filter(t=>new Date(t.date).getFullYear()===year&&t.currency===pc);
+  const exp=txs.filter(t=>t.type==='expense');
+  const inc=txs.filter(t=>t.type==='income');
+  const totExp=exp.reduce((s,t)=>s+t.amount,0);
+  const totInc=inc.reduce((s,t)=>s+t.amount,0);
+  const catTot={}; exp.forEach(t=>catTot[t.category]=(catTot[t.category]||0)+t.amount);
+  const topCat=Object.entries(catTot).sort((a,b)=>b[1]-a[1])[0];
+  const big=[...exp].sort((a,b)=>b.amount-a.amount)[0];
+  const monTot={}; exp.forEach(t=>{ const m=new Date(t.date).getMonth(); monTot[m]=(monTot[m]||0)+t.amount;});
+  const topMon=Object.entries(monTot).sort((a,b)=>b[1]-a[1])[0];
+  const days=new Set(txs.map(t=>t.date)).size;
+  const html=`<div class="yw-card"><div class="yw-year">${year} 年度总结</div><div class="yw-title">你的钱去哪了 🐷</div></div>
+  <div class="yw-list">
+    ${topCat?`<div class="yw-item"><div class="yw-emj">${getCat('expense',topCat[0]).i}</div><div class="yw-text"><div class="yw-lbl">最爱的分类</div><div class="yw-val">${getCat('expense',topCat[0]).n} · ${sym}${fmt(topCat[1],pc)}</div></div></div>`:''}
+    ${big?`<div class="yw-item"><div class="yw-emj">💸</div><div class="yw-text"><div class="yw-lbl">最贵单笔</div><div class="yw-val">${sym}${fmt(big.amount,pc)}<br><span style="font-size:11px;color:var(--t2)">${big.date} · ${big.note||getCat('expense',big.category).n}</span></div></div></div>`:''}
+    ${topMon?`<div class="yw-item"><div class="yw-emj">📅</div><div class="yw-text"><div class="yw-lbl">最壕的一月</div><div class="yw-val">${+topMon[0]+1} 月 · ${sym}${fmt(topMon[1],pc)}</div></div></div>`:''}
+    <div class="yw-item"><div class="yw-emj">📊</div><div class="yw-text"><div class="yw-lbl">总记账天数</div><div class="yw-val">${days} 天</div></div></div>
+    <div class="yw-item"><div class="yw-emj">💰</div><div class="yw-text"><div class="yw-lbl">全年收支</div><div class="yw-val" style="color:var(--green);font-size:15px">+${sym}${fmt(totInc,pc)}</div><div class="yw-val" style="color:var(--red);font-size:15px">−${sym}${fmt(totExp,pc)}</div></div></div>
+    <div class="yw-item"><div class="yw-emj">🏆</div><div class="yw-text"><div class="yw-lbl">本年成就</div><div class="yw-val">${(db.unlockedAch||[]).length} / ${ACHIEVEMENTS.length} 个</div></div></div>
+  </div>`;
+  document.getElementById('ywContent').innerHTML=html;
+  document.getElementById('ywModal').classList.add('on');
+}
+function closeYW(){ document.getElementById('ywModal').classList.remove('on'); }
+
+// ═══════════════════════════════════════
+// 📝 MONTH REPORT
+// ═══════════════════════════════════════
+function openMonthReport(){
+  const pc=db.settings.primCur,sym=getCur(pc).sym;
+  const txs=getMonthTxs(S.year,S.month).filter(t=>t.currency===pc);
+  const exp=txs.filter(t=>t.type==='expense');
+  const inc=txs.filter(t=>t.type==='income');
+  const totExp=exp.reduce((s,t)=>s+t.amount,0);
+  const totInc=inc.reduce((s,t)=>s+t.amount,0);
+  const days=new Set(txs.map(t=>t.date)).size;
+  const catTot={}; exp.forEach(t=>catTot[t.category]=(catTot[t.category]||0)+t.amount);
+  const sorted=Object.entries(catTot).sort((a,b)=>b[1]-a[1]);
+  const top=sorted[0];
+  const big=[...exp].sort((a,b)=>b.amount-a.amount)[0];
+  const avgDay=days>0?totExp/days:0;
+  let report=`<p>🐷 <b>${S.year}年${S.month+1}月</b> 报告：</p>`;
+  report+=`<p>本月你记账 <b style="color:var(--purple)">${days}</b> 天，共 <b style="color:var(--purple)">${txs.length}</b> 笔。</p>`;
+  report+=`<p>支出 <b style="color:var(--red)">${sym}${fmt(totExp,pc)}</b>，收入 <b style="color:var(--green)">${sym}${fmt(totInc,pc)}</b>，结余 <b style="color:var(--cyan)">${sym}${fmt(totInc-totExp,pc)}</b>。</p>`;
+  if(top) report+=`<p>最大支出分类是 <b>${getCat('expense',top[0]).i} ${getCat('expense',top[0]).n}</b>（${sym}${fmt(top[1],pc)}，占 ${Math.round(top[1]/totExp*100)}%）。</p>`;
+  if(big) report+=`<p>最贵的一笔：<b>${big.note||getCat('expense',big.category).n}</b>，花了 <b style="color:var(--red)">${sym}${fmt(big.amount,pc)}</b>。</p>`;
+  if(days>0) report+=`<p>日均支出 <b>${sym}${fmt(avgDay,pc)}</b>。</p>`;
+  const lim=db.settings;
+  if(lim.monthBudget>0){
+    const r=totExp/lim.monthBudget*100;
+    report+=`<p>本月预算使用 <b style="color:${r>100?'var(--red)':r>80?'var(--orange)':'var(--green)'}">${Math.round(r)}%</b>${r>100?'，已超支 😱':r>80?'，接近预算 ⚠️':'，控制得不错 👍'}。</p>`;
+  }
+  const moods=exp.filter(t=>t.mood);
+  if(moods.length){
+    const happy=moods.filter(t=>t.mood===1).length;
+    const regret=moods.filter(t=>t.mood===3||t.mood===4).length;
+    report+=`<p>开心消费 ${happy} 笔，后悔消费 ${regret} 笔。</p>`;
+  }
+  report+=`<p style="margin-top:10px;color:var(--t2);font-size:12px">— 小猪报告员 🐷</p>`;
+  document.getElementById('mrContent').innerHTML=report;
+  document.getElementById('mrModal').classList.add('on');
+}
+function closeMR(){ document.getElementById('mrModal').classList.remove('on'); }
+
+// ═══════════════════════════════════════
+// 🔮 PREDICTION (in stats)
+// ═══════════════════════════════════════
+function renderPrediction(){
+  const el=document.getElementById('predCard'); if(!el) return;
+  const pc=db.settings.primCur,sym=getCur(pc).sym;
+  const now=new Date(),thisMonth=now.getFullYear()===S.year&&now.getMonth()===S.month;
+  if(!thisMonth){ el.style.display='none'; return; }
+  el.style.display='';
+  const txs=getMonthTxs(S.year,S.month).filter(t=>t.type==='expense'&&t.currency===pc);
+  const used=txs.reduce((s,t)=>s+t.amount,0);
+  const daysIn=new Date(S.year,S.month+1,0).getDate();
+  const dayNow=now.getDate();
+  const proj=dayNow>0?used/dayNow*daysIn:0;
+  const bud=db.settings.monthBudget||0;
+  let extra='';
+  if(bud>0){
+    const over=proj-bud;
+    extra=over>0?`<div class="pred-sub" style="color:var(--red)">⚠️ 按此节奏将超支 ${sym}${fmt(over,pc)}</div>`:`<div class="pred-sub" style="color:var(--green)">✓ 预算内可控</div>`;
+  }
+  el.innerHTML=`<div class="pred-row"><div class="pred-ico">🔮</div><div class="pred-info"><div class="pred-lbl">本月支出预测</div><div class="pred-val">${sym}${fmt(proj,pc)}</div>${extra}</div></div>`;
+}
+
+// ═══════════════════════════════════════
+// 🔄 SUBSCRIPTIONS
+// ═══════════════════════════════════════
+function openSubs(){
+  const pc=db.settings.primCur,sym=getCur(pc).sym;
+  const tot=db.subscriptions.reduce((s,x)=>s+(x.amount||0),0);
+  document.getElementById('subsTotal').innerHTML=db.subscriptions.length?`本月订阅总支出 <b style="color:var(--purple);font-size:16px">${sym}${fmt(tot,pc)}</b>`:'还没有订阅，加一个吧～';
+  document.getElementById('subsList').innerHTML=db.subscriptions.map(s=>`<div class="sub-card"><div class="sub-ico">${s.icon||'🔄'}</div><div class="sub-info"><div class="sub-name">${s.name}</div><div class="sub-meta">每月 ${s.day} 号扣款</div></div><div class="sub-amt">${sym}${fmt(s.amount,pc)}</div><button class="sub-del" onclick="delSub('${s.id}')">删除</button></div>`).join('');
+  document.getElementById('subsModal').classList.add('on');
+}
+function closeSubs(){ document.getElementById('subsModal').classList.remove('on'); }
+function openSubAdd(){
+  document.getElementById('subName').value=''; document.getElementById('subAmt').value=''; document.getElementById('subDay').value='';
+  document.getElementById('subAddDlg').classList.add('on');
+}
+function closeSubAdd(){ document.getElementById('subAddDlg').classList.remove('on'); }
+function saveSub(){
+  const name=document.getElementById('subName').value.trim();
+  const amt=parseFloat(document.getElementById('subAmt').value);
+  const day=parseInt(document.getElementById('subDay').value);
+  if(!name||!amt||!day) return showToast('请填写完整','warn');
+  db.subscriptions.push({id:uid(),name,amount:amt,day,icon:'🔄'});
+  saveDB(); closeSubAdd(); openSubs(); showToast('✅ 已添加','ok');
+}
+function delSub(id){ db.subscriptions=db.subscriptions.filter(s=>s.id!==id); saveDB(); openSubs(); }
+
+// ═══════════════════════════════════════
+// 💳 CREDIT CARDS
+// ═══════════════════════════════════════
+function openCards(){
+  const today=new Date();
+  document.getElementById('cardsList').innerHTML=db.cards.length?db.cards.map(c=>{
+    const d=new Date(today.getFullYear(),today.getMonth(),c.repayDay);
+    if(d<today) d.setMonth(d.getMonth()+1);
+    const days=Math.ceil((d-today)/(86400000));
+    return `<div class="card-item"><button class="card-del" onclick="delCard('${c.id}')">✕</button><div class="card-name">${c.name}</div><div class="card-num">•••• •••• •••• ${c.last||'····'}</div><div class="card-meta"><div><div>账单日</div><div class="card-stat">${c.billDay} 号</div></div><div><div>还款日</div><div class="card-stat">${c.repayDay} 号</div></div><div><div>距下次还款</div><div class="card-stat" style="color:${days<=3?'#FCD34D':'#fff'}">${days} 天</div></div></div></div>`;
+  }).join(''):'<div style="text-align:center;color:var(--t3);padding:20px;font-size:13px">还没有添加卡片</div>';
+  document.getElementById('cardsModal').classList.add('on');
+}
+function closeCards(){ document.getElementById('cardsModal').classList.remove('on'); }
+function openCardAdd(){ ['cardName','cardLast','cardBill','cardRepay'].forEach(id=>document.getElementById(id).value=''); document.getElementById('cardAddDlg').classList.add('on'); }
+function closeCardAdd(){ document.getElementById('cardAddDlg').classList.remove('on'); }
+function saveCard(){
+  const name=document.getElementById('cardName').value.trim();
+  const last=document.getElementById('cardLast').value.trim();
+  const billDay=parseInt(document.getElementById('cardBill').value);
+  const repayDay=parseInt(document.getElementById('cardRepay').value);
+  if(!name||!billDay||!repayDay) return showToast('请填写完整','warn');
+  db.cards.push({id:uid(),name,last,billDay,repayDay});
+  saveDB(); closeCardAdd(); openCards(); showToast('✅ 已添加','ok');
+}
+function delCard(id){ db.cards=db.cards.filter(c=>c.id!==id); saveDB(); openCards(); }
+
+// ═══════════════════════════════════════
+// 🏷️ CUSTOM CATEGORIES
+// ═══════════════════════════════════════
+let _ccType='expense';
+function openCustomCats(){ setCCType('expense'); document.getElementById('ccModal').classList.add('on'); }
+function closeCC(){ document.getElementById('ccModal').classList.remove('on'); }
+function setCCType(t){
+  _ccType=t;
+  document.getElementById('ccTypeE').className='tbtn'+(t==='expense'?' ae':'');
+  document.getElementById('ccTypeI').className='tbtn'+(t==='income'?' ai':'');
+  renderCCList();
+}
+function renderCCList(){
+  const list=db.customCats[_ccType]||[];
+  document.getElementById('ccList').innerHTML=list.length?list.map(c=>`<div class="cc-item"><span class="cc-ico">${c.i}</span><span class="cc-name">${c.n}</span><button class="cc-del" onclick="delCC('${c.id}')">删除</button></div>`).join(''):'<div style="text-align:center;color:var(--t3);padding:16px;font-size:13px">点击下方添加自定义分类</div>';
+}
+const CC_ICONS=['🏷️','☕','🍵','🎯','🎨','🎪','🎭','🎤','🎬','🎯','📚','🎲','🛒','💼','🏥','🌟','💡','🔑','📞','📦'];
+function openCCAdd(){ document.getElementById('ccName').value=''; S.ccIcon=0; document.getElementById('ccIconPick').innerHTML=CC_ICONS.map((ic,i)=>`<div class="ip-opt${i===0?' sel':''}" onclick="pickCCIcon(${i})">${ic}</div>`).join(''); document.getElementById('ccAddDlg').classList.add('on'); }
+function closeCCAdd(){ document.getElementById('ccAddDlg').classList.remove('on'); }
+function pickCCIcon(i){ S.ccIcon=i; document.querySelectorAll('#ccIconPick .ip-opt').forEach((el,j)=>el.classList.toggle('sel',j===i)); }
+function saveCC(){
+  const name=document.getElementById('ccName').value.trim(); if(!name) return;
+  if(!db.customCats[_ccType]) db.customCats[_ccType]=[];
+  db.customCats[_ccType].push({id:'cc_'+uid(),n:name,i:CC_ICONS[S.ccIcon||0],c:'#A78BFA'});
+  saveDB(); closeCCAdd(); renderCCList(); showToast('✅ 已添加','ok');
+}
+function delCC(id){
+  db.customCats[_ccType]=(db.customCats[_ccType]||[]).filter(c=>c.id!==id);
+  saveDB(); renderCCList();
+}
+// merge custom into category lists used in modal
+function getAllCats(type){
+  const base=type==='expense'?EXP_CATS:INC_CATS;
+  const extra=(db.customCats[type]||[]);
+  return [...base,...extra];
+}
+
+// Override getCat to include custom
+const _origGetCat=getCat;
+getCat=function(type,id){
+  return getAllCats(type).find(c=>c.id===id)||{n:'未知',i:'❓',c:'#888'};
+};
+
+// ═══════════════════════════════════════
+// 📓 DIARY
+// ═══════════════════════════════════════
+function saveDiary(){
+  const txt=document.getElementById('diaryText').value;
+  const date=S._dayDate; if(!date) return;
+  if(txt.trim()) db.diary[date]=txt.trim();
+  else delete db.diary[date];
+  saveDB();
+}
+function openDiaryList(){
+  const dates=Object.keys(db.diary||{}).sort((a,b)=>b.localeCompare(a));
+  document.getElementById('diaryList').innerHTML=dates.length?dates.map(d=>`<div class="tx-card" style="margin:0 0 10px;padding:14px 16px"><div style="font-size:13px;color:var(--purple);font-weight:700;margin-bottom:6px">${d} ${weekday(d)}</div><div style="font-size:14px;color:var(--text);line-height:1.6;white-space:pre-wrap">${db.diary[d].replace(/</g,'&lt;')}</div></div>`).join(''):'<div style="text-align:center;color:var(--t3);padding:24px;font-size:13px">📓 还没写过日记<br>点开任意日历日期可写日记</div>';
+  document.getElementById('diaryModal').classList.add('on');
+}
+function closeDiary(){ document.getElementById('diaryModal').classList.remove('on'); }
 
 // ═══════════════════════════════════════
 // CSV IMPORT (微信/支付宝)
@@ -2251,7 +2844,7 @@ function showToast(msg,type=''){
 // ═══════════════════════════════════════
 // BACKDROP CLOSE
 // ═══════════════════════════════════════
-['addModal','confirmDlg','detailDlg','dayModal','accDlg','settingsModal','pbDlg','pbActDlg','importModal'].forEach(id=>{
+['addModal','confirmDlg','detailDlg','dayModal','accDlg','settingsModal','pbDlg','pbActDlg','importModal','achModal','chalModal','ywModal','mrModal','subsModal','subAddDlg','cardsModal','cardAddDlg','ccModal','ccAddDlg','diaryModal'].forEach(id=>{
   const el=document.getElementById(id);
   if(el) el.addEventListener('click',function(e){ if(e.target===this) this.classList.remove('on'); });
 });
