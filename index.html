@@ -287,6 +287,77 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 
 ::-webkit-scrollbar{width:0;height:0}
 
+/* ─────── LIGHT MODE ─────── */
+body.light{
+  --bg:#FFF8FB;--bg2:#FFEEF5;
+  --glass:rgba(255,255,255,.72);--glass2:rgba(255,255,255,.55);
+  --gb:rgba(0,0,0,.09);--gb2:rgba(0,0,0,.05);
+  --text:#2D1B4E;--t2:#7C6B96;--t3:#A89BB8;
+}
+body.light::before{background:radial-gradient(ellipse at 15% 15%,var(--bg-tint1) 0%,transparent 55%),radial-gradient(ellipse at 85% 85%,var(--bg-tint2) 0%,transparent 55%)}
+body.light .bg-deco{opacity:.4}
+body.light .bg-deco span{filter:saturate(1.05) drop-shadow(0 2px 3px rgba(0,0,0,.15))}
+body.light .sheet{background:linear-gradient(180deg,#FFFFFF 0%,#FFF5FA 100%)}
+body.light .dlg-box,body.light .det-box,body.light .acc-dlg-box,body.light .calc-box{background:#FFFFFF;border-color:var(--gb)}
+body.light .npb,body.light .cb{background:#FFFFFF}
+body.light .cb.fn{background:#F8F4FC}
+body.light .numpad,body.light .calc-grid{background:rgba(0,0,0,.08)}
+body.light .bnav{background:rgba(255,248,251,.95)}
+body.light .x-btn{background:rgba(0,0,0,.06)}
+body.light .type-tog,body.light .aa-mode-tog{background:rgba(0,0,0,.06)}
+body.light .form-row,body.light .s-field{background:rgba(0,0,0,.03)}
+body.light .cur-chip,body.light .ac-chip,body.light .chip,body.light .cat-btn{background:rgba(255,255,255,.85)}
+body.light .acc-dlg-box input,body.light .pbActAmount{background:rgba(0,0,0,.03);color:var(--text)}
+body.light .form-row input,body.light .aa-row input{color:var(--text)}
+body.light .form-row input[type="date"]{color-scheme:light}
+body.light .yb,body.light .ip-opt{background:rgba(0,0,0,.04)}
+body.light .toast{background:rgba(255,255,255,.96);color:var(--text);border-color:var(--gb)}
+body.light .npb:active,body.light .cb:active{background:#F0EAFA}
+
+/* ─── Readability backdrops (works in both modes) ─── */
+.app-name{text-shadow:0 1px 3px rgba(0,0,0,.25);filter:saturate(1.2)}
+body.light .app-name{text-shadow:0 1px 2px rgba(255,255,255,.5)}
+.hero-amt{text-shadow:0 2px 6px rgba(0,0,0,.25);filter:saturate(1.15)}
+body.light .hero-amt{text-shadow:0 1px 3px rgba(255,255,255,.6)}
+.sum-card{background:rgba(0,0,0,.28)!important;backdrop-filter:blur(14px)}
+body.light .sum-card{background:rgba(255,255,255,.7)!important}
+.sum-card .val{text-shadow:0 1px 2px rgba(0,0,0,.3)}
+body.light .sum-card .val{text-shadow:none}
+.sheet-title,.day-sheet-title,.cal-title span{text-shadow:0 1px 3px rgba(0,0,0,.2);filter:saturate(1.15)}
+body.light .sheet-title,body.light .day-sheet-title,body.light .cal-title span{text-shadow:none}
+
+/* ─── Toggle Switch ─── */
+.tgl{width:46px;height:26px;background:var(--gb);border-radius:14px;position:relative;cursor:pointer;transition:background .25s;flex-shrink:0}
+.tgl[data-on="true"]{background:var(--purple);box-shadow:0 0 10px var(--pg)}
+.tgl::after{content:'';position:absolute;left:2px;top:2px;width:22px;height:22px;background:#fff;border-radius:50%;transition:left .25s,transform .15s;box-shadow:0 2px 5px rgba(0,0,0,.3)}
+.tgl[data-on="true"]::after{left:22px}
+.tgl:active::after{transform:scale(.92)}
+.srow .tgl{margin-right:0}
+
+/* ─── Monthly Budget Card ─── */
+.bg-card{background:var(--glass);border:1px solid var(--gb);border-radius:16px;padding:14px 16px;margin-bottom:12px;backdrop-filter:blur(12px)}
+.bg-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.bg-lbl{font-size:12px;color:var(--t2);font-weight:600}
+.bg-amts{font-size:13px;font-weight:700;color:var(--text)}
+.bg-amts .used{color:var(--red)}
+.bg-bar-bg{height:8px;background:rgba(0,0,0,.12);border-radius:4px;overflow:hidden}
+body.light .bg-bar-bg{background:rgba(0,0,0,.06)}
+.bg-bar{height:100%;background:linear-gradient(90deg,var(--green),var(--yellow));transition:width .5s;border-radius:4px}
+.bg-bar.warn{background:linear-gradient(90deg,var(--yellow),var(--orange))}
+.bg-bar.over{background:linear-gradient(90deg,var(--orange),var(--red))}
+.bg-sub{font-size:11px;color:var(--t2);margin-top:6px;display:flex;justify-content:space-between}
+
+/* ─── Mode toggle button (in header) ─── */
+.mode-btn{background:var(--glass);border:1px solid var(--gb);color:var(--text);width:32px;height:32px;border-radius:10px;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-right:6px}
+
+/* ─── Feature display control ─── */
+body:not(.f-quote) .quote-card{display:none}
+body:not(.f-streak) .streak-card{display:none}
+body:not(.f-budget) .bg-card{display:none}
+body:not(.f-piggy) #pbSection{display:none}
+body:not(.f-insights) #insSection{display:none}
+body:not(.f-compare) #cmpGrid{display:none}
+
 /* ── Import Modal ── */
 .import-guide{background:var(--glass2);border:1px solid var(--gb2);border-radius:14px;padding:14px;margin-bottom:14px;font-size:13px;line-height:1.7;color:var(--t2)}
 .import-guide-title{color:var(--text);font-weight:700;margin-bottom:8px;font-size:14px}
@@ -445,6 +516,7 @@ body.t-sunset{
       <div class="hdr-top">
         <div class="app-name">🐷 小猪记账本</div>
         <div class="hdr-right">
+          <button class="mode-btn" onclick="toggleLight()" id="modeBtn" title="切换主题">🌙</button>
           <button class="calc-icon-btn" onclick="openCalc()" title="计算器">🧮</button>
           <div class="month-nav">
             <button class="mnbtn" onclick="changeMonth(-1)">‹</button>
@@ -473,6 +545,11 @@ body.t-sunset{
           <div class="hero-lbl">本月净结余</div>
           <div class="hero-amt" id="heroBal">HK$0.00</div>
           <div class="hero-cur" id="heroCurLine">港币 · 本月</div>
+        </div>
+        <div class="bg-card" id="budgetCard">
+          <div class="bg-top"><span class="bg-lbl">📊 本月预算</span><span class="bg-amts"><span class="used" id="bgUsed">HK$0</span> / <span id="bgTotal">未设置</span></span></div>
+          <div class="bg-bar-bg"><div class="bg-bar" id="bgBar" style="width:0%"></div></div>
+          <div class="bg-sub"><span id="bgRemain"></span><span id="bgDays"></span></div>
         </div>
         <div class="streak-card" id="streakCard">
           <div class="streak-info">
@@ -525,7 +602,7 @@ body.t-sunset{
         <div class="sc"><h3>收支趋势（近6个月）</h3><div class="chart-box"><canvas id="barChart"></canvas></div></div>
         <div class="sc" id="pieCard"><h3>本月支出分类</h3><div class="chart-box"><canvas id="pieChart"></canvas></div></div>
         <div class="sc"><h3>支出排行</h3><div id="rankList"></div></div>
-        <div class="sc"><h3>💡 消费洞察</h3><div class="ins-grid" id="insGrid"></div></div>
+        <div class="sc" id="insSection"><h3>💡 消费洞察</h3><div class="ins-grid" id="insGrid"></div></div>
       </div>
     </div>
     <!-- Bills (added here after stats so it's in correct order) -->
@@ -547,7 +624,29 @@ body.t-sunset{
     <!-- Mine -->
     <div class="view" id="view-mine">
       <div class="mine-wrap">
-        <div class="mine-sec-title">🐷 小猪存钱罐</div>
+        <div class="mine-sec-title">⚙️ 功能开关</div>
+        <div class="gc" style="overflow:hidden;margin-bottom:12px" id="featToggles"></div>
+        <div class="mine-sec-title">🔔 记账提醒</div>
+        <div class="gc" style="overflow:hidden;margin-bottom:16px;padding:14px 16px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <span style="font-size:14px;font-weight:600">每日提醒</span>
+            <div class="tgl" data-on="false" id="remindTgl" onclick="toggleRemind()"></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding-top:10px;border-top:1px solid var(--gb2)">
+            <span style="font-size:13px;color:var(--t2);flex:1">提醒时间</span>
+            <input type="time" id="remindTime" value="20:00" onchange="saveRemindTime()" style="background:var(--glass2);border:1px solid var(--gb);color:var(--text);padding:6px 12px;border-radius:8px;font-size:14px;font-weight:600;outline:none;color-scheme:dark">
+          </div>
+          <div style="font-size:11px;color:var(--t3);margin-top:8px">💡 首次开启会请求通知权限，请允许</div>
+        </div>
+        <div class="mine-sec-title">💰 月度预算</div>
+        <div class="gc" style="overflow:hidden;margin-bottom:16px;padding:14px 16px">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-size:13px;color:var(--t2);flex-shrink:0">每月限额</span>
+            <input type="number" id="monthBudget" placeholder="0 = 不限" min="0" onchange="saveMonthBudget()" style="flex:1;background:var(--glass2);border:1px solid var(--gb);color:var(--text);padding:8px 12px;border-radius:8px;font-size:14px;font-weight:700;outline:none;text-align:right">
+            <span style="font-size:13px;color:var(--t2)" id="bgCurSym">HK$</span>
+          </div>
+        </div>
+        <div class="mine-sec-title" id="pbSecTitle">🐷 小猪存钱罐</div>
         <div id="pbList"></div>
         <button class="add-acc-btn" onclick="openPbDlg()">＋ 添加存钱目标</button>
         <div class="mine-sec-title">🎨 主题色</div>
@@ -892,6 +991,9 @@ if(!db.settings) db.settings={primCur:'HKD',limitAmt:0,limitCur:'HKD'};
 if(!db.savings) db.savings=[];
 if(!db.streak) db.streak={last:'',count:0,best:0};
 if(!db.theme) db.theme='purple';
+// Feature defaults
+const FEAT_DEFAULTS={lightMode:false,featQuote:true,featStreak:true,featBudget:true,featPiggy:true,featInsights:true,featCompare:true,remindEnabled:false,remindTime:'20:00',monthBudget:0};
+for(const k in FEAT_DEFAULTS) if(db.settings[k]===undefined) db.settings[k]=FEAT_DEFAULTS[k];
 function saveDB(){ localStorage.setItem('jzpro',JSON.stringify(db)); }
 
 const PB_ICONS=['🐷','📱','✈️','🏠','🚗','💍','🎮','👗','💻','🎓','💎','🏝️'];
@@ -899,10 +1001,117 @@ const THEMES=[
   {id:'purple',name:'紫电'},{id:'sakura',name:'樱花'},
   {id:'emerald',name:'翡翠'},{id:'aurora',name:'极光'},{id:'sunset',name:'日落'},
 ];
-function applyTheme(){
-  document.body.className=db.theme==='purple'?'':'t-'+db.theme;
+const FEAT_LIST=[
+  {key:'featQuote',name:'小猪寄语',ico:'💬'},
+  {key:'featStreak',name:'记账打卡',ico:'🔥'},
+  {key:'featBudget',name:'月度预算',ico:'📊'},
+  {key:'featPiggy',name:'存钱罐',ico:'🐷'},
+  {key:'featInsights',name:'消费洞察',ico:'💡'},
+  {key:'featCompare',name:'月度对比',ico:'📈'},
+];
+function applyAllSettings(){
+  const cls=[];
+  if(db.settings.lightMode) cls.push('light');
+  if(db.theme!=='purple') cls.push('t-'+db.theme);
+  FEAT_LIST.forEach(f=>{ if(db.settings[f.key]!==false) cls.push('f-'+f.key.substr(4).toLowerCase()); });
+  document.body.className=cls.join(' ');
+  const mb=document.getElementById('modeBtn');
+  if(mb) mb.textContent=db.settings.lightMode?'☀️':'🌙';
 }
-applyTheme();
+const applyTheme=applyAllSettings; // legacy alias
+applyAllSettings();
+
+function toggleLight(){ db.settings.lightMode=!db.settings.lightMode; saveDB(); applyAllSettings(); showToast(db.settings.lightMode?'☀️ 浅色模式':'🌙 深色模式','ok'); }
+
+function renderFeatToggles(){
+  const el=document.getElementById('featToggles'); if(!el) return;
+  el.innerHTML=FEAT_LIST.map(f=>`
+    <div class="srow" onclick="toggleFeat('${f.key}')">
+      <span class="srow-ico">${f.ico}</span><span class="srow-txt">${f.name}</span>
+      <div class="tgl" data-on="${db.settings[f.key]!==false}"></div>
+    </div>`).join('');
+}
+function toggleFeat(key){
+  db.settings[key]=!db.settings[key];
+  saveDB(); applyAllSettings(); renderFeatToggles();
+}
+
+// ─── Monthly Budget ───
+function saveMonthBudget(){
+  db.settings.monthBudget=parseFloat(document.getElementById('monthBudget').value)||0;
+  saveDB(); renderBudget();
+}
+function renderBudget(){
+  const pc=db.settings.primCur,sym=getCur(pc).sym;
+  const bud=db.settings.monthBudget;
+  const card=document.getElementById('budgetCard'); if(!card) return;
+  if(!bud||bud<=0){
+    document.getElementById('bgTotal').textContent='未设置';
+    document.getElementById('bgUsed').textContent=sym+'0';
+    document.getElementById('bgBar').style.width='0%';
+    document.getElementById('bgRemain').textContent='点击「我的」设置每月预算';
+    document.getElementById('bgDays').textContent='';
+    return;
+  }
+  const txs=getMonthTxs(S.year,S.month).filter(t=>t.type==='expense'&&t.currency===pc);
+  const used=txs.reduce((s,t)=>s+t.amount,0);
+  const pct=Math.min(150,(used/bud*100));
+  const bar=document.getElementById('bgBar');
+  bar.style.width=Math.min(100,pct)+'%';
+  bar.className='bg-bar'+(pct>=100?' over':pct>=70?' warn':'');
+  document.getElementById('bgUsed').textContent=sym+fmt(used,pc);
+  document.getElementById('bgTotal').textContent=sym+fmt(bud,pc);
+  const remain=bud-used;
+  document.getElementById('bgRemain').textContent=remain>=0?`剩余 ${sym}${fmt(remain,pc)}`:`已超支 ${sym}${fmt(-remain,pc)}`;
+  const now=new Date(),isThisMonth=now.getFullYear()===S.year&&now.getMonth()===S.month;
+  if(isThisMonth){
+    const lastDay=new Date(S.year,S.month+1,0).getDate();
+    const left=lastDay-now.getDate();
+    document.getElementById('bgDays').textContent=`还有 ${left} 天`;
+  } else document.getElementById('bgDays').textContent='';
+}
+
+// ─── Reminder Notifications ───
+let _lastReminded='';
+function toggleRemind(){
+  db.settings.remindEnabled=!db.settings.remindEnabled;
+  if(db.settings.remindEnabled&&'Notification' in window&&Notification.permission==='default'){
+    Notification.requestPermission().then(p=>{
+      if(p!=='granted') showToast('⚠️ 通知权限被拒绝，仅 App 内提示','warn');
+      else showToast('✅ 提醒已开启','ok');
+    });
+  } else showToast(db.settings.remindEnabled?'✅ 提醒已开启':'已关闭提醒','ok');
+  saveDB(); updateRemindTglUI(); setupReminder();
+}
+function saveRemindTime(){
+  db.settings.remindTime=document.getElementById('remindTime').value||'20:00';
+  saveDB(); _lastReminded=''; setupReminder();
+}
+function updateRemindTglUI(){
+  const t=document.getElementById('remindTgl'); if(t) t.dataset.on=String(!!db.settings.remindEnabled);
+  const inp=document.getElementById('remindTime'); if(inp) inp.value=db.settings.remindTime||'20:00';
+}
+function setupReminder(){
+  if(window._remindTimer){ clearInterval(window._remindTimer); window._remindTimer=null; }
+  if(!db.settings.remindEnabled) return;
+  checkReminder();
+  window._remindTimer=setInterval(checkReminder,60000);
+}
+function checkReminder(){
+  if(!db.settings.remindEnabled) return;
+  const now=new Date(), today=todayStr();
+  if(_lastReminded===today) return;
+  const[h,m]=(db.settings.remindTime||'20:00').split(':').map(Number);
+  const curMin=now.getHours()*60+now.getMinutes(), tgtMin=h*60+m;
+  if(curMin<tgtMin) return;
+  if(db.txs.some(t=>t.date===today)) return;
+  _lastReminded=today;
+  if('Notification' in window&&Notification.permission==='granted'){
+    try{ new Notification('🐷 小猪记账提醒',{body:'今天还没记账哦，记一下吧~',tag:'jzremind'}); }catch{}
+  }
+  showToast('🐷 今天还没记账哦~快记一笔吧','warn');
+}
+setupReminder();
 
 // ═══════════════════════════════════════
 // CUTE BACKGROUND PATTERN (dense tiled animals)
@@ -1007,6 +1216,7 @@ function renderHome(){
   renderSummary();
   renderStreak();
   renderQuote();
+  renderBudget();
   renderTxList('homeList', getMonthTxs(S.year,S.month));
 }
 
@@ -1423,7 +1633,12 @@ function switchTab(tab){
   else if(tab==='cal') renderCalendar();
   else if(tab==='bills') renderBills();
   else if(tab==='stats') renderStats();
-  else if(tab==='mine'){ renderAccs(); renderSummary(); renderPbList(); renderThemes(); }
+  else if(tab==='mine'){
+    renderAccs(); renderSummary(); renderPbList(); renderThemes();
+    renderFeatToggles(); updateRemindTglUI();
+    document.getElementById('monthBudget').value=db.settings.monthBudget||'';
+    document.getElementById('bgCurSym').textContent=getCur(db.settings.primCur).sym;
+  }
 }
 
 function changeMonth(d){
