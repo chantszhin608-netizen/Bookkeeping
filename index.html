@@ -43,6 +43,9 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .sum-card{flex:1;background:var(--glass);border:1px solid var(--gb2);border-radius:14px;padding:10px 12px;text-align:center;backdrop-filter:blur(10px)}
 .sum-card .lbl{font-size:10px;color:var(--t2);letter-spacing:.5px;text-transform:uppercase}
 .sum-card .val{font-size:17px;font-weight:800;margin-top:3px}
+.sum-card .val-x{font-size:11px;font-weight:700;margin-top:2px;opacity:.85;color:var(--t2)}
+body.light .sum-card .val-x{color:var(--t2)}
+.hero-x{font-size:14px;font-weight:700;margin-top:6px;opacity:.85}
 .val-inc{color:var(--green)}.val-exp{color:var(--red)}.val-bal{color:var(--cyan)}
 
 /* ── Content ── */
@@ -802,9 +805,7 @@ body.t-sunset{
           <div class="pro-tile" onclick="openYearWrapped()"><div class="pro-tile-ico">📅</div><div class="pro-tile-name">年度回顾</div></div>
           <div class="pro-tile" onclick="openMonthReport()"><div class="pro-tile-ico">📝</div><div class="pro-tile-name">本月月报</div></div>
           <div class="pro-tile" onclick="openSubs()"><div class="pro-tile-ico">🔄</div><div class="pro-tile-name">订阅服务</div></div>
-          <div class="pro-tile" onclick="openCards()"><div class="pro-tile-ico">💳</div><div class="pro-tile-name">我的卡片</div></div>
           <div class="pro-tile" onclick="openCustomCats()"><div class="pro-tile-ico">🏷️</div><div class="pro-tile-name">自定义分类</div></div>
-          <div class="pro-tile" onclick="openDiaryList()"><div class="pro-tile-ico">📓</div><div class="pro-tile-name">我的日记</div></div>
         </div>
         <div class="mine-sec-title" id="pbSecTitle">🐷 小猪存钱罐</div>
         <div id="pbList"></div>
@@ -889,13 +890,6 @@ body.t-sunset{
     <div class="cat-grid" id="catGrid"></div>
     <div class="sec-lbl">账户</div>
     <div class="acc-chips" id="accChips"></div>
-    <div class="sec-lbl">心情（可选）</div>
-    <div class="mood-row" id="moodRow">
-      <button class="mood-btn" data-m="1" onclick="pickMood(1)">😊</button>
-      <button class="mood-btn" data-m="2" onclick="pickMood(2)">😐</button>
-      <button class="mood-btn" data-m="3" onclick="pickMood(3)">😟</button>
-      <button class="mood-btn" data-m="4" onclick="pickMood(4)">😡</button>
-    </div>
     <div class="photo-row">
       <label class="photo-btn" id="photoBtn">📷 拍照 / 选图（可选）<input type="file" accept="image/*" capture="environment" style="display:none" onchange="handlePhoto(event)"></label>
       <img id="photoPrev" class="photo-preview" style="display:none">
@@ -995,11 +989,7 @@ body.t-sunset{
       <div><div class="day-sheet-title" id="dayTitle"></div><div class="day-sum" id="daySumLine"></div></div>
       <button class="x-btn" onclick="closeDayModal()">✕</button>
     </div>
-    <div class="diary-box">
-      <div class="diary-lbl">📝 今日日记</div>
-      <textarea id="diaryText" placeholder="记一句心情、一件小事..." maxlength="300" oninput="saveDiary()"></textarea>
-    </div>
-    <div style="padding:0 12px" id="dayList"></div>
+    <div style="padding:12px" id="dayList"></div>
   </div>
 </div>
 
@@ -1446,18 +1436,34 @@ const S={
 function renderSummary(){
   const txs=getMonthTxs(S.year,S.month);
   const pc=db.settings.primCur;
-  const inc=txs.filter(t=>t.type==='income'&&t.currency===pc).reduce((s,t)=>s+t.amount,0);
-  const exp=txs.filter(t=>t.type==='expense'&&t.currency===pc).reduce((s,t)=>s+t.amount,0);
+  // Group by currency
+  const byCcy={};
+  txs.forEach(t=>{
+    if(!byCcy[t.currency]) byCcy[t.currency]={inc:0,exp:0};
+    byCcy[t.currency][t.type==='income'?'inc':'exp']+=t.amount;
+  });
+  const primInc=byCcy[pc]?.inc||0;
+  const primExp=byCcy[pc]?.exp||0;
   const sym=getCur(pc).sym;
+  // Build extra currency lines
+  const extras=(field)=>Object.entries(byCcy).filter(([code,v])=>code!==pc&&v[field]>0).map(([code,v])=>`<div class="val-x">${getCur(code).sym}${fmt(v[field],code)}</div>`).join('');
+  const extraBal=Object.entries(byCcy).filter(([code,v])=>code!==pc&&(v.inc-v.exp)!==0).map(([code,v])=>{
+    const b=v.inc-v.exp;
+    return `<div class="val-x" style="color:${b>=0?'var(--green)':'var(--red)'}">${getCur(code).sym}${fmt(b,code)}</div>`;
+  }).join('');
   document.getElementById('monthLbl').textContent=`${S.year}年${S.month+1}月`;
   document.getElementById('calMonthLbl').textContent=`${S.year}年${S.month+1}月`;
-  document.getElementById('sInc').textContent=sym+fmt(inc,pc);
-  document.getElementById('sExp').textContent=sym+fmt(exp,pc);
-  document.getElementById('sBal').textContent=sym+fmt(inc-exp,pc);
-  document.getElementById('heroBal').textContent=sym+fmt(inc-exp,pc);
+  document.getElementById('sInc').innerHTML=sym+fmt(primInc,pc)+extras('inc');
+  document.getElementById('sExp').innerHTML=sym+fmt(primExp,pc)+extras('exp');
+  document.getElementById('sBal').innerHTML=sym+fmt(primInc-primExp,pc)+extraBal;
+  // Hero balance - show primary + other currencies
+  const otherBalsHero=Object.entries(byCcy).filter(([code,v])=>code!==pc&&(v.inc-v.exp)!==0).map(([code,v])=>{
+    const b=v.inc-v.exp;
+    return `<div class="hero-x" style="color:${b>=0?'var(--green)':'var(--red)'}">${b>=0?'+':''}${getCur(code).sym}${fmt(b,code)}</div>`;
+  }).join('');
+  document.getElementById('heroBal').innerHTML=sym+fmt(primInc-primExp,pc)+otherBalsHero;
   const cur=getCur(pc);
   document.getElementById('heroCurLine').textContent=`${cur.flag} ${cur.name} · ${S.year}年${S.month+1}月`;
-  // limit display
   const lim=db.settings;
   document.getElementById('limitDisplay').textContent=lim.limitAmt>0?`${getCur(lim.limitCur).sym}${fmt(lim.limitAmt,lim.limitCur)}/天`:'未设置';
   document.getElementById('limitLbl').textContent=lim.limitAmt>0?`限额 ${getCur(lim.limitCur).sym}${fmt(lim.limitAmt,lim.limitCur)}/天`:'';
@@ -1981,7 +1987,7 @@ document.getElementById('yearPick').addEventListener('click',function(e){ if(e.t
 function openAdd(){
   S.amt=''; S.type='expense';
   S.cat=EXP_CATS[0].id; S.acc=db.accs[0]?.id||''; S.addCur='HKD';
-  S.addMood=null; S.addPhoto=null;
+  S.addPhoto=null; S.catExpanded=false;
   document.getElementById('amtVal').textContent='0';
   document.getElementById('noteIn').value='';
   document.getElementById('dateIn').value=todayStr();
@@ -2005,6 +2011,7 @@ function pickCur(code){ S.addCur=code; renderCurRow(); }
 function setType(type){
   S.type=type; S.amt='';
   S.cat=(type==='expense'?EXP_CATS:INC_CATS)[0].id;
+  S.catExpanded=false;
   document.getElementById('amtVal').textContent='0';
   document.getElementById('btnE').className='tbtn'+(type==='expense'?' ae':'');
   document.getElementById('btnI').className='tbtn'+(type==='income'?' ai':'');
@@ -2012,11 +2019,24 @@ function setType(type){
 }
 function renderCatGrid(){
   const cats=getAllCats(S.type);
-  document.getElementById('catGrid').innerHTML=cats.map(c=>
-    `<button class="cat-btn${c.id===S.cat?' sel':''}" onclick="pickCat('${c.id}')">
-      <span class="cat-ico">${c.i}</span><span class="cat-nm">${c.n}</span>
-    </button>`).join('');
+  let expanded=S.catExpanded;
+  // Auto-expand if selected cat is not in first 4
+  if(!expanded){
+    const selIdx=cats.findIndex(c=>c.id===S.cat);
+    if(selIdx>=4){ expanded=true; S.catExpanded=true; }
+  }
+  const btn=c=>`<button class="cat-btn${c.id===S.cat?' sel':''}" onclick="pickCat('${c.id}')"><span class="cat-ico">${c.i}</span><span class="cat-nm">${c.n}</span></button>`;
+  let html;
+  if(cats.length<=5){
+    html=cats.map(btn).join('');
+  } else if(expanded){
+    html=cats.map(btn).join('')+`<button class="cat-btn" onclick="toggleCatExpand()" style="background:var(--glass)"><span class="cat-ico">▴</span><span class="cat-nm">收起</span></button>`;
+  } else {
+    html=cats.slice(0,4).map(btn).join('')+`<button class="cat-btn" onclick="toggleCatExpand()" style="background:var(--glass)"><span class="cat-ico">▾</span><span class="cat-nm">更多</span></button>`;
+  }
+  document.getElementById('catGrid').innerHTML=html;
 }
+function toggleCatExpand(){ S.catExpanded=!S.catExpanded; renderCatGrid(); }
 function pickCat(id){ S.cat=id; renderCatGrid(); }
 function renderAccChips(){
   document.getElementById('accChips').innerHTML=db.accs.map(a=>
